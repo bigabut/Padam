@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1837882697860112929}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2616, y: 0.3035, z: 0}
+  m_LocalPosition: {x: 0.93, y: 0.3035, z: 0}
   m_LocalScale: {x: 0.117171004, y: 0.27925152, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -57,7 +57,9 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  movementSpeed: 0
+  baseSpeed: 5
+  maxSpeed: 12
+  acceleration: 0.2
 --- !u!212 &9144827941324561683
 SpriteRenderer:
   serializedVersion: 2
