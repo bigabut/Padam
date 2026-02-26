@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - blueTarget
+  - redTarget
+  - yellowTarget
+  - greenTarget
   layers:
   - Default
   - TransparentFX
