@@ -33,7 +33,10 @@ public class Wire : MonoBehaviour
 
     void Update()
     {
-        if (connected) return;
+        if (connected) {
+
+            return;
+        }
 
         Vector2 screenPos = GetPointerPos();
         Vector3 worldPos = cam.ScreenToWorldPoint(screenPos);
@@ -95,6 +98,8 @@ public class Wire : MonoBehaviour
                 line.startColor = line.endColor = sr.color;
 
             connected = true;
+                    FindObjectOfType<WireManager>().WireConnected();
+
         }
         else
         {

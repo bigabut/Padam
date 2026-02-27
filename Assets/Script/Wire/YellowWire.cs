@@ -95,6 +95,8 @@ public class YellowWire : MonoBehaviour
                 line.startColor = line.endColor = sr.color;
 
             connected = true;
+            FindObjectOfType<WireManager>().WireConnected();
+
         }
         else
         {
