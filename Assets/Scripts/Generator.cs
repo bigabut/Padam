@@ -2,10 +2,11 @@
 using UnityEngine.UIElements;
 
 public class Generator : MonoBehaviour
-{
+{   
+    
     [Header("References")]
     public UIDocument uiDocument;
-    public TaskTimer taskTimer;
+    public Timer timer;   // hubungkan ke Timer
 
     [Header("Cursor")]
     public Texture2D hoverCursor;
@@ -24,6 +25,9 @@ public class Generator : MonoBehaviour
     void Awake()
     {
         InitializeUI();
+
+        if (timer != null)
+            timer.OnTimeUp += FailTask; // kalau waktu habis, generator gagal
     }
 
     void InitializeUI()
@@ -33,7 +37,6 @@ public class Generator : MonoBehaviour
         var root = uiDocument.rootVisualElement;
         if (root == null) return;
 
-        // Container untuk progress bar
         container = new VisualElement();
         container.style.width = 30;
         container.style.height = 200;
@@ -43,7 +46,6 @@ public class Generator : MonoBehaviour
         container.style.bottom = 50;
         container.style.justifyContent = Justify.FlexEnd;
 
-        // Fill (progress)
         fill = new VisualElement();
         fill.style.width = Length.Percent(100);
         fill.style.height = 0;
@@ -53,14 +55,6 @@ public class Generator : MonoBehaviour
         root.Add(container);
 
         container.visible = true;
-
-        // Timer link
-        if (taskTimer != null)
-        {
-            taskTimer.OnTimeUp += FailTask;
-            taskTimer.StartTimer();
-        }
-
         taskActive = true;
     }
 
@@ -104,22 +98,17 @@ public class Generator : MonoBehaviour
         UnityEngine.Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
-    void OnDisable()
-    {
-        if (taskTimer != null)
-            taskTimer.OnTimeUp -= FailTask;
-    }
-
     void SuccessTask()
     {
         taskActive = false;
         isHolding = false;
 
-        if (taskTimer != null)
-            taskTimer.StopTimer();
-
-        if (container != null)
+        if (container != null){
             container.visible = false;
+        }
+
+        
+            timer.StopTimer(); // freeze waktu
 
         Debug.Log("TASK SUCCESS");
     }
