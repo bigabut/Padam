@@ -24,7 +24,7 @@ public class GreenWire : MonoBehaviour
         line.positionCount = 2;
         line.useWorldSpace = true;
         line.material = new Material(Shader.Find("Sprites/Default"));
-        line.startWidth = line.endWidth = 0.05f;
+        line.startWidth = line.endWidth = 0.5f;
         line.startColor = line.endColor = Color.green;
 
         line.SetPosition(0, startPos);
