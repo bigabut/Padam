@@ -1,126 +1,124 @@
- using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
-public class Generator : MonoBehaviour
-{   
-    
-    [Header("References")]
-    public UIDocument uiDocument;
-    public Timer timer;   // hubungkan ke Timer
-
-    [Header("Cursor")]
-    public Texture2D hoverCursor;
-    public Vector2 hotspot = Vector2.zero;
+public class GeneratorTask : MonoBehaviour
+{
+    [Header("Sprites")]
+    public Sprite closedSprite;
+    public Sprite openSprite;
 
     [Header("Settings")]
-    public float holdDuration = 3f;
+    public float holdStartRequired = 2f;   // Waktu hold untuk buka generator
+    public float holdTimeRequired = 3f;    // Waktu hold untuk task
+    public float missionTime = 10f;        // Waktu misi aktif
 
-    VisualElement container;
-    VisualElement fill;
+    [Header("UI")]
+    public Image startProgressBar;  // Circle fill untuk hold start
+    public Image taskProgressBar;   // Vertical fill untuk task
+    public TextMeshProUGUI timerText;
 
-    float holdTimer;
-    bool isHolding;
-    bool taskActive;
+    private SpriteRenderer sr;
+    private bool generatorOpened = false;
+    private bool taskCompleted = false;
+    private float startTimer = 0f;
+    private float holdTimer = 0f;
+    private float missionTimer = 0f;
 
-    void Awake()
+    void Start()
     {
-        InitializeUI();
+        sr = GetComponent<SpriteRenderer>();
+        if(sr == null) Debug.LogError("SpriteRenderer tidak ditemukan!");
+        sr.sprite = closedSprite;
 
-        if (timer != null)
-            timer.OnTimeUp += FailTask; // kalau waktu habis, generator gagal
-    }
-
-    void InitializeUI()
-    {
-        if (uiDocument == null) return;
-
-        var root = uiDocument.rootVisualElement;
-        if (root == null) return;
-
-        container = new VisualElement();
-        container.style.width = 30;
-        container.style.height = 200;
-        container.style.backgroundColor = Color.gray;
-        container.style.position = Position.Absolute;
-        container.style.left = 400;
-        container.style.bottom = 50;
-        container.style.justifyContent = Justify.FlexEnd;
-
-        fill = new VisualElement();
-        fill.style.width = Length.Percent(100);
-        fill.style.height = 0;
-        fill.style.backgroundColor = Color.green;
-
-        container.Add(fill);
-        root.Add(container);
-
-        container.visible = true;
-        taskActive = true;
+        if(startProgressBar != null) startProgressBar.fillAmount = 0;
+        if(taskProgressBar != null) taskProgressBar.fillAmount = 0;
+        if(timerText != null) timerText.text = "";
     }
 
     void Update()
     {
-        if (!taskActive || fill == null) return;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        bool mouseOver = Physics2D.OverlapPoint(mousePos) == GetComponent<Collider2D>();
 
-        if (isHolding)
+        // --- Update mission timer selalu berjalan jika generator sudah dibuka & task belum selesai
+        if(generatorOpened && !taskCompleted)
         {
-            holdTimer += Time.deltaTime;
-            float percent = Mathf.Clamp01(holdTimer / holdDuration);
-            fill.style.height = Length.Percent(percent * 100);
+            missionTimer = Mathf.Max(0, missionTimer - Time.deltaTime);
 
-            if (holdTimer >= holdDuration)
-                SuccessTask();
+            if(timerText != null)
+            {
+                int minutes = Mathf.FloorToInt(missionTimer / 60f);
+                int seconds = Mathf.FloorToInt(missionTimer % 60f);
+                timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            }
+
+            if(missionTimer <= 0f)
+                FailMission();
+        }
+
+        // --- Hitung hold click
+        if(Input.GetMouseButton(0) && mouseOver)
+        {
+            if(!generatorOpened)
+            {
+                // Hold untuk buka generator
+                startTimer += Time.deltaTime;
+                if(startProgressBar != null)
+                    startProgressBar.fillAmount = startTimer / holdStartRequired;
+
+                if(startTimer >= holdStartRequired)
+                {
+                    generatorOpened = true;
+                    StartMission();
+                    startTimer = 0f;
+                    if(startProgressBar != null) startProgressBar.fillAmount = 0;
+                }
+            }
+            else if(generatorOpened && !taskCompleted)
+            {
+                // Hold untuk task
+                holdTimer += Time.deltaTime;
+                if(taskProgressBar != null)
+                    taskProgressBar.fillAmount = holdTimer / holdTimeRequired;
+
+                if(holdTimer >= holdTimeRequired)
+                    CompleteTask();
+            }
+        }
+        else
+        {
+            // Reset timers jika mouse dilepas atau bukan di object
+            startTimer = 0f;
+            holdTimer = 0f;
+            if(startProgressBar != null) startProgressBar.fillAmount = 0;
+            if(taskProgressBar != null) taskProgressBar.fillAmount = 0;
         }
     }
 
-    void OnMouseDown()
+    void StartMission()
     {
-        if (!taskActive) return;
+        sr.sprite = openSprite;
+        missionTimer = missionTime;
         holdTimer = 0f;
-        isHolding = true;
+        if(taskProgressBar != null) taskProgressBar.fillAmount = 0;
     }
 
-    void OnMouseUp()
+    void CompleteTask()
     {
-        if (!taskActive || fill == null) return;
-        isHolding = false;
-        holdTimer = 0f;
-        fill.style.height = 0;
+        taskCompleted = true;
+        if(taskProgressBar != null) taskProgressBar.fillAmount = 1f;
+        if(timerText != null) timerText.text = "Task Complete!";
+        Debug.Log("Generator fixed!");
     }
 
-    void OnMouseEnter()
+    void FailMission()
     {
-        UnityEngine.Cursor.SetCursor(hoverCursor, hotspot, CursorMode.Auto);
-    }
-
-    void OnMouseExit()
-    {
-        UnityEngine.Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-    }
-
-    void SuccessTask()
-    {
-        taskActive = false;
-        isHolding = false;
-
-        if (container != null){
-            container.visible = false;
-        }
-
-        
-            timer.StopTimer(); // freeze waktu
-
-        Debug.Log("TASK SUCCESS");
-    }
-
-    void FailTask()
-    {
-        taskActive = false;
-        isHolding = false;
-
-        if (container != null)
-            container.visible = false;
-
-        Debug.Log("TASK FAILED - TIME UP");
+        generatorOpened = false;
+        taskCompleted = false;
+        sr.sprite = closedSprite;
+        if(timerText != null) timerText.text = "Failed!";
+        if(startProgressBar != null) startProgressBar.fillAmount = 0;
+        if(taskProgressBar != null) taskProgressBar.fillAmount = 0;
     }
 }
