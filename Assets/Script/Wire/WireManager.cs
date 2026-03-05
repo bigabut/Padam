@@ -1,7 +1,6 @@
- using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine;
 using TMPro;
-
+using UnityEngine.InputSystem;
 public class WireManager : MonoBehaviour {
     [Header("Asset Panel")]
     public GameObject closedAsset;
@@ -32,30 +31,17 @@ public class WireManager : MonoBehaviour {
 
         if (timerText != null)
             timerText.text = "";
-    }
 
-    public void OpenAsset() {
-        closedAsset.SetActive(false);
-        openAsset.SetActive(true);
-
-        foreach (GameObject wire in wirePairs) {
-            wire.SetActive(true);
-        }
-
-        // mulai timer sekali
+        // langsung mulai timer saat game run
         timer = timeLimit;
         started = true;
-
-        Debug.Log("Asset terbuka, semua kabel muncul! Timer dimulai.");
     }
 
     void Update() {
-        // cek input spasi → hanya buka asset kalau belum mulai
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && !started) {
+        // update timer setiap frame
+          if (Keyboard.current.spaceKey.wasPressedThisFrame) {
             OpenAsset();
         }
-
-        // update timer setiap frame
         if (started && !Done) {
             timer -= Time.deltaTime;
 
@@ -70,6 +56,17 @@ public class WireManager : MonoBehaviour {
                     timerText.text = "Waktu habis!";
             }
         }
+    }
+
+    public void OpenAsset() {
+        closedAsset.SetActive(false);
+        openAsset.SetActive(true);
+
+        foreach (GameObject wire in wirePairs) {
+            wire.SetActive(true);
+        }
+
+        Debug.Log("Asset terbuka, semua kabel muncul!");
     }
 
     public void WireConnected() {
