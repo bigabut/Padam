@@ -6,7 +6,7 @@ public class PinGame : MonoBehaviour
 {
     // kalau pakai Text biasa:
     public Text displayText;
-
+    private bool isCorrect = false; 
     // kalau pakai TextMeshPro:
     // public TextMeshProUGUI displayText;
 
@@ -16,15 +16,17 @@ public class PinGame : MonoBehaviour
     // Fungsi ini dipanggil dari tombol keypad
     public void OnKeyPress(string key)
     {
+        if(isCorrect == false){
         if (key == "#") // tombol submit
         {
             if (inputPIN == correctPIN)
             {
-                displayText.text = "BERHASIL\nPIN: " + inputPIN;
+                displayText.text = "BENAR";
+                isCorrect = true;
             }
             else
             {
-                displayText.text = "PIN SALAH";
+                displayText.text = "SALAH";
             }
             inputPIN = ""; // reset setelah submit
         }
@@ -50,5 +52,6 @@ public class PinGame : MonoBehaviour
                 displayText.text = inputPIN;
             }
         }
+    }
     }
 }
