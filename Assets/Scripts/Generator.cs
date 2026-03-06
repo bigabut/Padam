@@ -11,7 +11,7 @@ public class GeneratorTask : MonoBehaviour
     [Header("Settings")]
     public float holdStartRequired = 2f;   // Waktu hold untuk buka generator
     public float holdTimeRequired = 3f;    // Waktu hold untuk task
-    public float missionTime = 10f;        // Waktu misi aktif
+    public float missionTime = 15f;        // Waktu misi aktif
 
     [Header("UI")]
     public Image startProgressBar;  // Circle fill untuk hold start
@@ -33,7 +33,15 @@ public class GeneratorTask : MonoBehaviour
 
         if(startProgressBar != null) startProgressBar.fillAmount = 0;
         if(taskProgressBar != null) taskProgressBar.fillAmount = 0;
-        if(timerText != null) timerText.text = "";
+
+        // --- Timer langsung muncul saat Play
+        missionTimer = missionTime;
+        if(timerText != null)
+        {
+            int minutes = Mathf.FloorToInt(missionTimer / 60f);
+            int seconds = Mathf.FloorToInt(missionTimer % 60f);
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
     }
 
     void Update()
@@ -42,7 +50,7 @@ public class GeneratorTask : MonoBehaviour
         bool mouseOver = Physics2D.OverlapPoint(mousePos) == GetComponent<Collider2D>();
 
         // --- Update mission timer selalu berjalan jika generator sudah dibuka & task belum selesai
-        if(generatorOpened && !taskCompleted)
+        if(!taskCompleted)
         {
             missionTimer = Mathf.Max(0, missionTimer - Time.deltaTime);
 
