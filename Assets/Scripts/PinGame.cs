@@ -1,57 +1,79 @@
 using UnityEngine;
-using UnityEngine.UI; // kalau pakai Text biasa
-// kalau pakai TextMeshPro, ganti dengan: using TMPro;
+using UnityEngine.UI; 
+using TMPro;
 
 public class PinGame : MonoBehaviour
 {
-    // kalau pakai Text biasa:
-    public Text displayText;
-    private bool isCorrect = false; 
-    // kalau pakai TextMeshPro:
-    // public TextMeshProUGUI displayText;
+    public Text displayText;              // Text biasa
+    private bool isCorrect = false;       
+    public string correctPIN = "1234";    // PIN yang benar
+    private string inputPIN = "";         
+    public TextMeshProUGUI timerText;     
+    public bool isRunning = true;          // 1 = true, 0 = false
+    public float timeRemaining = 15f;     
 
-    public string correctPIN = "1234"; // PIN yang benar
-    private string inputPIN = "";
-
-    // Fungsi ini dipanggil dari tombol keypad
-    public void OnKeyPress(string key)
+    void Update()
     {
-        if(isCorrect == false){
-        if (key == "#") // tombol submit
+        if (isRunning && !isCorrect)
         {
-            if (inputPIN == correctPIN)
+            if (timeRemaining > 0)
             {
-                displayText.text = "BENAR";
-                isCorrect = true;
+                timeRemaining -= Time.deltaTime;
+                int minutes = Mathf.FloorToInt(timeRemaining / 60);   // bagi 60
+                int seconds = Mathf.FloorToInt(timeRemaining % 60);   // sisa bagi 60
+
+                timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
             }
             else
             {
-                displayText.text = "SALAH";
-            }
-            inputPIN = ""; // reset setelah submit
-        }
-        else if (key == "*") // tombol reset
-        {
-            inputPIN = "";
-            displayText.text = "Reset PIN";
-        }
-        else if (key == "DEL") // tombol delete
-        {
-            if (inputPIN.Length > 0)
-            {
-                inputPIN = inputPIN.Substring(0, inputPIN.Length - 1);
-                displayText.text = inputPIN;
-            }
-        }
-        else // tombol angka 0–9
-        {
-            // batasi maksimal 4 digit
-            if (inputPIN.Length < 4)
-            {
-                inputPIN += key;
-                displayText.text = inputPIN;
+                timeRemaining = 0;
+                isRunning = false;
+
+                timeRemaining = 0f;
+                displayText.text = "Waktu habis";
             }
         }
     }
+
+    public void OnKeyPress(string key)
+    {
+        if (isCorrect == false || isRunning)
+        {
+            if (key == "#") // submit
+            {
+                if (inputPIN == correctPIN)
+                {
+                    displayText.text = "BENAR";
+                    isCorrect = true;
+                    isRunning = false; // stop timer
+                }
+                else
+                {
+                    displayText.text = "SALAH";
+                }
+                inputPIN = "";
+            }
+            else if (key == "*") // reset
+            {
+                inputPIN = "";
+                displayText.text = "Reset PIN";
+            }
+            else if (key == "DEL") // delete
+            {
+                if (inputPIN.Length > 0)
+                {
+                    inputPIN = inputPIN.Substring(0, inputPIN.Length - 1);
+                    displayText.text = inputPIN;
+                }
+            }
+            else // angka 0–9
+            {
+                if (inputPIN.Length < 4)
+                {
+                    inputPIN += key;
+                    displayText.text = inputPIN;
+                }
+            }
+        }
     }
 }
