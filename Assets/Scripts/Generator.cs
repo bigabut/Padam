@@ -2,21 +2,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class GeneratorTask : MonoBehaviour
+public class Generator : MonoBehaviour
 {
     [Header("Sprites")]
     public Sprite closedSprite;
     public Sprite openSprite;
 
     [Header("Settings")]
-    public float holdStartRequired = 2f;   // Waktu hold untuk buka generator
-    public float holdTimeRequired = 3f;    // Waktu hold untuk task
-    public float missionTime = 15f;        // Waktu misi aktif
+    public float holdStartRequired = 2f;
+    public float holdTimeRequired = 3f;
+    public float missionTime = 15f;
 
     [Header("UI")]
-    public Image startProgressBar;  // Circle fill untuk hold start
-    public Image taskProgressBar;   // Vertical fill untuk task
+    public Image startProgressBar;
+    public Image taskProgressBar;
     public TextMeshProUGUI timerText;
+    public Button testButton; // contoh tombol di canvas
 
     private SpriteRenderer sr;
     private bool generatorOpened = false;
@@ -24,6 +25,7 @@ public class GeneratorTask : MonoBehaviour
     private float startTimer = 0f;
     private float holdTimer = 0f;
     private float missionTimer = 0f;
+    private bool timesout = false;
 
     void Start()
     {
@@ -34,43 +36,28 @@ public class GeneratorTask : MonoBehaviour
         if(startProgressBar != null) startProgressBar.fillAmount = 0;
         if(taskProgressBar != null) taskProgressBar.fillAmount = 0;
 
-        // --- Timer langsung muncul saat Play
         missionTimer = missionTime;
-        if(timerText != null)
-        {
-            int minutes = Mathf.FloorToInt(missionTimer / 60f);
-            int seconds = Mathf.FloorToInt(missionTimer % 60f);
-            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        }
+        UpdateTimerText();
     }
+
+   
 
     void Update()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         bool mouseOver = Physics2D.OverlapPoint(mousePos) == GetComponent<Collider2D>();
 
-        // --- Update mission timer selalu berjalan jika generator sudah dibuka & task belum selesai
         if(!taskCompleted)
         {
             missionTimer = Mathf.Max(0, missionTimer - Time.deltaTime);
-
-            if(timerText != null)
-            {
-                int minutes = Mathf.FloorToInt(missionTimer / 60f);
-                int seconds = Mathf.FloorToInt(missionTimer % 60f);
-                timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-            }
-
-            if(missionTimer <= 0f)
-                FailMission();
+            UpdateTimerText();
+            if(missionTimer <= 0f) FailMission();
         }
 
-        // --- Hitung hold click
         if(Input.GetMouseButton(0) && mouseOver)
         {
-            if(!generatorOpened)
+            if(!generatorOpened && !timesout)
             {
-                // Hold untuk buka generator
                 startTimer += Time.deltaTime;
                 if(startProgressBar != null)
                     startProgressBar.fillAmount = startTimer / holdStartRequired;
@@ -85,7 +72,6 @@ public class GeneratorTask : MonoBehaviour
             }
             else if(generatorOpened && !taskCompleted)
             {
-                // Hold untuk task
                 holdTimer += Time.deltaTime;
                 if(taskProgressBar != null)
                     taskProgressBar.fillAmount = holdTimer / holdTimeRequired;
@@ -96,7 +82,6 @@ public class GeneratorTask : MonoBehaviour
         }
         else
         {
-            // Reset timers jika mouse dilepas atau bukan di object
             startTimer = 0f;
             holdTimer = 0f;
             if(startProgressBar != null) startProgressBar.fillAmount = 0;
@@ -124,9 +109,22 @@ public class GeneratorTask : MonoBehaviour
     {
         generatorOpened = false;
         taskCompleted = false;
+        timesout = true;
         sr.sprite = closedSprite;
         if(timerText != null) timerText.text = "Failed!";
-        if(startProgressBar != null) startProgressBar.fillAmount = 0;
-        if(taskProgressBar != null) taskProgressBar.fillAmount = 0;
+        startProgressBar.fillAmount = 0;
+        taskProgressBar.fillAmount = 0;
     }
+
+    void UpdateTimerText()
+    {
+        if(timerText != null)
+        {
+            int minutes = Mathf.FloorToInt(missionTimer / 60f);
+            int seconds = Mathf.FloorToInt(missionTimer % 60f);
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
+    }
+
+    
 }
