@@ -31,9 +31,7 @@ public class PlayerInteract : MonoBehaviour
                 // Disable movement, bukan pause global
                 if(playerMovement != null) playerMovement.enabled = false;
 
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
+             }
         }
 
         if (generatorCanvas.activeSelf && Input.GetKeyDown(KeyCode.Escape))

@@ -82,16 +82,13 @@ public class Generator : MonoBehaviour
         else
         {
             startTimer = 0f;
-            holdTimer = 0f;
             if(startProgressBar != null) startProgressBar.fillAmount = 0;
-            if(taskProgressBar != null) taskProgressBar.fillAmount = 0;
-        }
+         }
     }
     
     void StartMission()
     {
         sr.sprite = openSprite;
-        missionTimer = missionTime;
         holdTimer = 0f;
         if(taskProgressBar != null) taskProgressBar.fillAmount = 0;
     }
