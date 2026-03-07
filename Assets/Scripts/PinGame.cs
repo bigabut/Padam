@@ -14,7 +14,7 @@ public class PinGame : MonoBehaviour
 
     void Update()
     {
-        if (isRunning && !isCorrect)
+        if (isRunning)
         {
             if (timeRemaining > 0)
             {
@@ -26,18 +26,18 @@ public class PinGame : MonoBehaviour
             }
             else
             {
-                timeRemaining = 0;
+                
                 isRunning = false;
 
                 timeRemaining = 0f;
-                displayText.text = "Waktu habis";
+                timerText.text = "Waktu Habis!";
             }
         }
     }
 
     public void OnKeyPress(string key)
     {
-        if (isCorrect == false || isRunning)
+        if (isRunning)
         {
             if (key == "#") // submit
             {
