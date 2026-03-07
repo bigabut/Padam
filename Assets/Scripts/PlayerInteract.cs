@@ -6,7 +6,8 @@ public class PlayerInteract : MonoBehaviour
     public Transform generator;           
     public GameObject generatorCanvas;    
     public GameObject mainGameUI;         
-    public float interactDistance = 2f;   
+    public float interactDistance = 2f; 
+    private bool taskFixGenerator = false;  
 
     private PlayerMovement playerMovement; // contoh script movement
 
@@ -22,7 +23,7 @@ public class PlayerInteract : MonoBehaviour
 
         if (distance <= interactDistance)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && !taskFixGenerator)
             {
                 generatorCanvas.SetActive(true);
                 mainGameUI.SetActive(false);
@@ -58,7 +59,7 @@ public class PlayerInteract : MonoBehaviour
     Cursor.lockState = CursorLockMode.Locked;
     Cursor.visible = false;
     playerMovement.enabled = true;
-
+    taskFixGenerator = true;
     Time.timeScale = 1f; // kalau kamu masih pakai pause global
 }
 }
