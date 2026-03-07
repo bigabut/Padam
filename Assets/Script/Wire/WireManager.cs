@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+
 public class WireManager : MonoBehaviour {
     [Header("Asset Panel")]
     public GameObject closedAsset;
@@ -22,6 +23,7 @@ public class WireManager : MonoBehaviour {
     public TMP_Text timerText;   // drag TMP Text dari Canvas ke sini
 
     void Start() {
+        timer = timeLimit;
         closedAsset.SetActive(true);
         openAsset.SetActive(false);
 
@@ -31,30 +33,39 @@ public class WireManager : MonoBehaviour {
 
         if (timerText != null)
             timerText.text = "";
-
-        // langsung mulai timer saat game run
-        timer = timeLimit;
-        started = true;
+ 
+        started = false;
     }
 
     void Update() {
-        // update timer setiap frame
-          if (Keyboard.current.spaceKey.wasPressedThisFrame) {
-            OpenAsset();
-        }
-        if (started && !Done) {
-            timer -= Time.deltaTime;
+       
+
+        // update timer setiap frame, pakai unscaledDeltaTime
+         
+            if(timer>0 &&connectedPairs <4 )
+            timer -= Time.unscaledDeltaTime;
 
             if (timerText != null) {
-                timerText.text = "Waktu: " + Mathf.Ceil(timer).ToString();
-            }
+                int minutes = Mathf.FloorToInt(timer / 60f);
+                int seconds = Mathf.FloorToInt(timer % 60f);
+                timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+                
 
             if (timer <= 0f) {
                 started = false;
                 Debug.Log("Waktu habis!");
                 if (timerText != null)
                     timerText.text = "Waktu habis!";
+                EndTask(false);
             }
+        
+            if(connectedPairs >=4)
+            timerText.text = "Task Completed";
+
+             // buka asset dengan klik kiri mouse
+            if (Mouse.current.leftButton.wasPressedThisFrame && !openAsset.activeSelf) {
+            OpenAsset();
+        }
         }
     }
 
@@ -66,17 +77,29 @@ public class WireManager : MonoBehaviour {
             wire.SetActive(true);
         }
 
+        // mulai timer di sini
+        started = true;
+
         Debug.Log("Asset terbuka, semua kabel muncul!");
     }
 
     public void WireConnected() {
         connectedPairs++;
 
-        if (connectedPairs >= totalPairs && !Done) {
+        if (connectedPairs >= totalPairs  ) {
             Done = true;
-            Debug.Log("Semua kabel tersambung, task completed!");
-            if (timerText != null)
-                timerText.text = "Task Completed!";
+          
+            EndTask(true);
         }
+    }
+
+    private void EndTask(bool success) {
+        started = false;
+        foreach (GameObject wire in wirePairs) {
+            wire.SetActive(false);
+        }
+       
+
+        
     }
 }
