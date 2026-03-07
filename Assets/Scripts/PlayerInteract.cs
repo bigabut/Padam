@@ -3,51 +3,62 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     [Header("Interaction Settings")]
-    public Transform generator;           // Drag object yang bisa di-interact
-    public GameObject generatorCanvas;    // Drag Canvas mini task
-    public GameObject mainGameUI;         // Drag UI utama
-    public float interactDistance = 2f;   // Jarak interaksi
-     // Text "Press E to interact"
+    public Transform generator;           
+    public GameObject generatorCanvas;    
+    public GameObject mainGameUI;         
+    public float interactDistance = 2f;   
+
+    private PlayerMovement playerMovement; // contoh script movement
 
     private void Start()
     {
-        // Pastikan Canvas dan prompt tidak aktif di awal
         generatorCanvas.SetActive(false);
-        
+        playerMovement = GetComponent<PlayerMovement>(); // drag script movement player
     }
 
     private void Update()
     {
         float distance = Vector2.Distance(transform.position, generator.position);
 
-        // Kalau dekat generator
         if (distance <= interactDistance)
         {
-          
-
             if (Input.GetKeyDown(KeyCode.E))
             {
                 generatorCanvas.SetActive(true);
                 mainGameUI.SetActive(false);
 
-                // Biar UI bisa diklik
+                // Disable movement, bukan pause global
+                if(playerMovement != null) playerMovement.enabled = false;
+
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-
-                Time.timeScale = 0f;
             }
         }
-        
-        // Kalau Canvas aktif dan tekan Escape
+
         if (generatorCanvas.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
             generatorCanvas.SetActive(false);
             mainGameUI.SetActive(true);
 
+            if(playerMovement != null) playerMovement.enabled = true;
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-
-            Time.timeScale = 1f;
         }
     }
+    public void CloseGeneratorUI()
+{
+    generatorCanvas.SetActive(false);
+    mainGameUI.SetActive(true);
+
+    // Aktifkan lagi kontrol player
+    // kalau kamu disable movement script, aktifkan kembali di sini
+    // contoh: playerMovement.enabled = true;
+
+    Cursor.lockState = CursorLockMode.Locked;
+    Cursor.visible = false;
+    playerMovement.enabled = true;
+
+    Time.timeScale = 1f; // kalau kamu masih pakai pause global
+}
 }

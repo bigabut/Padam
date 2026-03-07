@@ -12,6 +12,7 @@ public class Generator : MonoBehaviour
     public float holdStartRequired = 2f;
     public float holdTimeRequired = 3f;
     public float missionTime = 15f;
+    public PlayerInteract playerInteract;
 
     [Header("UI")]
     public Image startProgressBar;
@@ -40,8 +41,6 @@ public class Generator : MonoBehaviour
         UpdateTimerText();
     }
 
-   
-
     void Update()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -49,7 +48,7 @@ public class Generator : MonoBehaviour
 
         if(!taskCompleted)
         {
-            missionTimer = Mathf.Max(0, missionTimer - Time.deltaTime);
+            missionTimer = Mathf.Max(0, missionTimer - Time.unscaledDeltaTime);
             UpdateTimerText();
             if(missionTimer <= 0f) FailMission();
         }
@@ -58,7 +57,7 @@ public class Generator : MonoBehaviour
         {
             if(!generatorOpened && !timesout)
             {
-                startTimer += Time.deltaTime;
+                startTimer += Time.unscaledDeltaTime;
                 if(startProgressBar != null)
                     startProgressBar.fillAmount = startTimer / holdStartRequired;
 
@@ -72,7 +71,7 @@ public class Generator : MonoBehaviour
             }
             else if(generatorOpened && !taskCompleted)
             {
-                holdTimer += Time.deltaTime;
+                holdTimer += Time.unscaledDeltaTime;
                 if(taskProgressBar != null)
                     taskProgressBar.fillAmount = holdTimer / holdTimeRequired;
 
@@ -88,7 +87,7 @@ public class Generator : MonoBehaviour
             if(taskProgressBar != null) taskProgressBar.fillAmount = 0;
         }
     }
-
+    
     void StartMission()
     {
         sr.sprite = openSprite;
@@ -103,6 +102,13 @@ public class Generator : MonoBehaviour
         if(taskProgressBar != null) taskProgressBar.fillAmount = 1f;
         if(timerText != null) timerText.text = "Task Complete!";
         Debug.Log("Generator fixed!");
+
+        if(taskProgressBar != null) taskProgressBar.fillAmount = 1f;
+         if(timerText != null) timerText.text = "Task Complete!";
+        Debug.Log("Generator fixed!");
+
+        // Balik ke main game UI
+        playerInteract.CloseGeneratorUI();
     }
 
     void FailMission()
@@ -125,6 +131,4 @@ public class Generator : MonoBehaviour
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
     }
-
-    
 }
