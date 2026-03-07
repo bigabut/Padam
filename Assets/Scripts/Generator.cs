@@ -28,6 +28,10 @@ public class Generator : MonoBehaviour
     private float missionTimer = 0f;
     private bool timesout = false;
 
+    public AudioSource audioSource;
+    public AudioClip clicksound;
+
+
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -58,6 +62,7 @@ public class Generator : MonoBehaviour
             if(!generatorOpened && !timesout)
             {
                 startTimer += Time.unscaledDeltaTime;
+               
                 if(startProgressBar != null)
                     startProgressBar.fillAmount = startTimer / holdStartRequired;
 
@@ -71,6 +76,7 @@ public class Generator : MonoBehaviour
             }
             else if(generatorOpened && !taskCompleted)
             {
+                 audioSource.PlayOneShot(clicksound);
                 holdTimer += Time.unscaledDeltaTime;
                 if(taskProgressBar != null)
                     taskProgressBar.fillAmount = holdTimer / holdTimeRequired;
