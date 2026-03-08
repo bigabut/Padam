@@ -4,21 +4,21 @@ using TMPro;
 
 public class Generator : MonoBehaviour
 {
-    [Header("Sprites")]
+   
     public Sprite closedSprite;
     public Sprite openSprite;
 
-    [Header("Settings")]
+ 
     public float holdStartRequired = 2f;
     public float holdTimeRequired = 3f;
     public float missionTime = 15f;
     public PlayerInteract playerInteract;
 
-    [Header("UI")]
+ 
     public Image startProgressBar;
     public Image taskProgressBar;
     public TextMeshProUGUI timerText;
-    public Button testButton; // contoh tombol di canvas
+    public Button testButton;  
 
     private SpriteRenderer sr;
     private bool generatorOpened = false;
@@ -29,7 +29,7 @@ public class Generator : MonoBehaviour
     private bool timesout = false;
 
     public AudioSource audioSource;
-    public AudioClip clicksound;
+    
 
 
     void Start()
