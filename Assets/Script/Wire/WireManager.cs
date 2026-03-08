@@ -1,105 +1,99 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
-public class WireManager : MonoBehaviour {
+public class WireManager : MonoBehaviour, IPointerDownHandler {
     [Header("Asset Panel")]
     public GameObject closedAsset;
     public GameObject openAsset;
 
     [Header("Wire Pairs")]
-    public GameObject[] wirePairs;
+    public CableLines[] wireLines;   // referensi ke 4 CableLine
+    public CableEnds[] wireEnds;     // referensi ke 8 CableEnd
 
-    private int connectedPairs = 0;
+    public int connectedPairs = 0;
     public int totalPairs = 4;
     public bool Done = false;
 
     [Header("Timer")]
-    public float timeLimit = 15f;   // durasi waktu (detik)
+    public float timeLimit = 15f;
     private float timer;
     private bool started = false;
+    private bool openBox = false;
 
     [Header("UI")]
-    public TMP_Text timerText;   // drag TMP Text dari Canvas ke sini
+    public TMP_Text timerText;
 
     void Start() {
         timer = timeLimit;
-        closedAsset.SetActive(true);
-        openAsset.SetActive(false);
+        if (closedAsset != null) closedAsset.SetActive(true);
+        if (openAsset != null) openAsset.SetActive(false);
 
-        foreach (GameObject wire in wirePairs) {
-            wire.SetActive(false);
+        foreach (var line in wireLines) {
+            if (line != null) line.gameObject.SetActive(false);
         }
 
-        if (timerText != null)
-            timerText.text = "";
- 
-        started = false;
+        started = true;
+        UpdateTimerText();
     }
 
     void Update() {
-       
-
-        // update timer setiap frame, pakai unscaledDeltaTime
-         
-            if(timer>0 &&connectedPairs <4 )
-            timer -= Time.unscaledDeltaTime;
-
-            if (timerText != null) {
-                int minutes = Mathf.FloorToInt(timer / 60f);
-                int seconds = Mathf.FloorToInt(timer % 60f);
-                timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-                
+        if (started && !Done) {
+            if (timer > 0 && connectedPairs < totalPairs) {
+                timer -= Time.unscaledDeltaTime;
+                UpdateTimerText();
+            }
 
             if (timer <= 0f) {
                 started = false;
                 Debug.Log("Waktu habis!");
-                if (timerText != null)
-                    timerText.text = "Waktu habis!";
-                EndTask(false);
+                if (timerText != null) timerText.text = "00:00";
             }
-        
-            if(connectedPairs >=4)
-            timerText.text = "Task Completed";
 
-             // buka asset dengan klik kiri mouse
-            if (Mouse.current.leftButton.wasPressedThisFrame && !openAsset.activeSelf) {
-            OpenAsset();
+            if (connectedPairs >= totalPairs) {
+                Done = true;
+                foreach (var line in wireLines) {
+                    if (line != null) line.gameObject.SetActive(false);
+                }
+                if (timerText != null) timerText.text = "Menang!";
+            }
         }
+    }
+
+    void UpdateTimerText() {
+        if (timerText != null) {
+            int minutes = Mathf.FloorToInt(timer / 60f);
+            int seconds = Mathf.FloorToInt(timer % 60f);
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData) {
+        if (!openBox) {
+            OpenAsset();
+            Debug.Log("Klik Canvas → buka asset");
+            openBox = true;
         }
     }
 
     public void OpenAsset() {
-        closedAsset.SetActive(false);
-        openAsset.SetActive(true);
+        if (closedAsset != null) closedAsset.SetActive(false);
+        if (openAsset != null) openAsset.SetActive(true);
 
-        foreach (GameObject wire in wirePairs) {
-            wire.SetActive(true);
+        foreach (var line in wireLines) {
+            if (line != null) line.gameObject.SetActive(true);
         }
-
-        // mulai timer di sini
-        started = true;
 
         Debug.Log("Asset terbuka, semua kabel muncul!");
     }
 
     public void WireConnected() {
         connectedPairs++;
+        Debug.Log("Kabel terhubung! Total: " + connectedPairs);
 
-        if (connectedPairs >= totalPairs  ) {
+        if (connectedPairs >= totalPairs) {
             Done = true;
-          
-            EndTask(true);
+            if (timerText != null) timerText.text = "Menang!";
         }
-    }
-
-    private void EndTask(bool success) {
-        started = false;
-        foreach (GameObject wire in wirePairs) {
-            wire.SetActive(false);
-        }
-       
-
-        
     }
 }

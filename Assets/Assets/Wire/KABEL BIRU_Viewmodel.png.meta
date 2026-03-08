@@ -119,13 +119,13 @@ TextureImporter:
       name: KABEL BIRU_Viewmodel_0
       rect:
         serializedVersion: 2
-        x: 695
-        y: 478
-        width: 122
+        x: 701
+        y: 481
+        width: 124
         height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 9, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -159,6 +159,72 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: KABEL BIRU_Viewmodel_2
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 773
+        width: 58
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f08ad96a8ad72854ebc59297a0cedbb3
+      internalID: -673359337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KABEL BIRU_Viewmodel_3
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 834
+        width: 32
+        height: 133
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 709303d2a83e16d45b97901daa082f63
+      internalID: 1449402018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KABEL BIRU_Viewmodel_4
+      rect:
+        serializedVersion: 2
+        x: 740
+        y: 480
+        width: 6
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da11d7f2891b39e4e83d60b8908ac13d
+      internalID: -1367331074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -177,6 +243,9 @@ TextureImporter:
     nameFileIdTable:
       KABEL BIRU_Viewmodel_0: 8322513530288387287
       KABEL BIRU_Viewmodel_1: -5441742566358036648
+      KABEL BIRU_Viewmodel_2: -673359337
+      KABEL BIRU_Viewmodel_3: 1449402018
+      KABEL BIRU_Viewmodel_4: -1367331074
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

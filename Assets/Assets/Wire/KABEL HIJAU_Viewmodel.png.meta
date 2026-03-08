@@ -127,7 +127,7 @@ TextureImporter:
         width: 45
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -144,12 +144,12 @@ TextureImporter:
       name: KABEL HIJAU_Viewmodel_1
       rect:
         serializedVersion: 2
-        x: 694
-        y: 324
-        width: 124
+        x: 700
+        y: 326
+        width: 118
         height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -171,7 +171,7 @@ TextureImporter:
         width: 125
         height: 68
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,11 +184,55 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: KABEL HIJAU_Viewmodel_3
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 552
+        width: 64
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4fa29ac63fa27a419c754ad92538cbb
+      internalID: 1273202317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KABEL HIJAU_Viewmodel_4
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 330
+        width: 9
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 22, z: 0, w: 35}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00ed64e9e43b0c749b27b75179230d7a
+      internalID: -1403557100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 3f676c2a77559474a80ae29c2364d1f0
     internalID: 0
     vertices: []
     indices: 
@@ -201,6 +245,8 @@ TextureImporter:
       KABEL HIJAU_Viewmodel_0: -4385064834755802853
       KABEL HIJAU_Viewmodel_1: 2984055039852120819
       KABEL HIJAU_Viewmodel_2: -640259333271988191
+      KABEL HIJAU_Viewmodel_3: 1273202317
+      KABEL HIJAU_Viewmodel_4: -1403557100
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

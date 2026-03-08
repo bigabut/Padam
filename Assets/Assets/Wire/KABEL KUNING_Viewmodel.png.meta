@@ -159,6 +159,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: KABEL KUNING_Viewmodel_2
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 611
+        width: 9
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83e6d93ba0afa8940ac120a218c209b1
+      internalID: -2027475453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -179,6 +201,7 @@ TextureImporter:
     nameFileIdTable:
       KABEL KUNING_Viewmodel_0: 5869169668484795353
       KABEL KUNING_Viewmodel_1: -5336211542734813327
+      KABEL KUNING_Viewmodel_2: -2027475453
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
