@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -29,6 +29,8 @@ public class Generator : MonoBehaviour
     private bool timesout = false;
 
     public AudioSource audioSource;
+    public AudioSource fillOil;
+
     
 
 
@@ -65,6 +67,12 @@ public class Generator : MonoBehaviour
                
                 if(startProgressBar != null)
                     startProgressBar.fillAmount = startTimer / holdStartRequired;
+                
+                if(!audioSource.isPlaying && startTimer > 0.1f)
+                {
+                    audioSource.Play(); 
+                }
+
 
                 if(startTimer >= holdStartRequired)
                 {
@@ -72,23 +80,29 @@ public class Generator : MonoBehaviour
                     StartMission();
                     startTimer = 0f;
                     if(startProgressBar != null) startProgressBar.fillAmount = 0;
+                    audioSource.Stop();
+
                 }
             }
             else if(generatorOpened && !taskCompleted)
             {
-                 audioSource.PlayOneShot(clicksound);
-                holdTimer += Time.unscaledDeltaTime;
+                 fillOil.Play();   
+                 holdTimer += Time.unscaledDeltaTime;
                 if(taskProgressBar != null)
                     taskProgressBar.fillAmount = holdTimer / holdTimeRequired;
 
                 if(holdTimer >= holdTimeRequired)
                     CompleteTask();
+                    fillOil.Stop();
             }
         }
         else
         {
             startTimer = 0f;
             if(startProgressBar != null) startProgressBar.fillAmount = 0;
+            audioSource.Stop();
+            fillOil.Stop();
+
          }
     }
     
