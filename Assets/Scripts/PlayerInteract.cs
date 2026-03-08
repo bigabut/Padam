@@ -29,7 +29,7 @@ public class PlayerInteract : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E) && !taskFixGenerator)
             {
                 generatorCanvas.SetActive(true);
-                mainGameUI.SetActive(false);
+               
 
                
                 if(playerMovement != null) playerMovement.enabled = false;
