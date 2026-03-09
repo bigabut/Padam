@@ -6,6 +6,8 @@ public class WireManager : MonoBehaviour, IPointerDownHandler {
     [Header("Asset Panel")]
     public GameObject closedAsset;
     public GameObject openAsset;
+    public GameObject hintPaper;
+    public PlayerInteract playerInteract;
 
     [Header("Wire Pairs")]
     public CableLines[] wireLines;   // referensi ke 4 CableLine
@@ -94,6 +96,8 @@ public class WireManager : MonoBehaviour, IPointerDownHandler {
         if (connectedPairs >= totalPairs) {
             Done = true;
             if (timerText != null) timerText.text = "Menang!";
+            playerInteract.CloseFixCableUI();
         }
+      
     }
 }
