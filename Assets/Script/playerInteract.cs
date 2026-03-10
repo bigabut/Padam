@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 public class PlayerInteract : MonoBehaviour
 {
     [Header("Referensi Objek")]
-    public GameObject obeng;        
+    public GameObject obeng;    
+    public GameObject baterai;    
     public GameObject mainGameUI;   
     public GameObject hintPaperUI;
     public GameObject tuasUI;
@@ -83,6 +84,17 @@ public class PlayerInteract : MonoBehaviour
             if (interactAction.WasPressedThisFrame())
             {
                 tuasUI.SetActive(true);
+               // playerMovement.enabled = false;
+            }
+        }
+
+        float distanceBaterai = Vector2.Distance(transform.position, baterai.transform.position);
+
+        if (distanceBaterai <= interactDistance)
+        {
+            if (interactAction.WasPressedThisFrame())
+            {
+                baterai.SetActive(false);
                // playerMovement.enabled = false;
             }
         }
