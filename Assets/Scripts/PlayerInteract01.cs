@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerInteract : MonoBehaviour
+public class PlayerInteract01 : MonoBehaviour
 {
  
     public Transform generator;           
@@ -11,7 +11,7 @@ public class PlayerInteract : MonoBehaviour
     private bool taskFixGenerator = false;  
 
     private bool isTriggerGenerator = false;
-    private PlayerMovement playerMovement;  
+    private PlayerMovement01 playerMovement;  
 
     private void Start()
     {

@@ -13,7 +13,7 @@ public class Generator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public float holdTimeRequired = 3f;    // waktu tahan untuk isi task
     public float missionTime = 15f;        // total waktu misi
 
-    public PlayerInteract playerInteract;
+    public PlayerInteract01 playerInteract;
 
     private float startTimer = 0f;
     private float holdTimer = 0f;
