@@ -43,11 +43,11 @@ public class PinGame : MonoBehaviour
             }
             else
             {
-                
+                timeRemaining = 0;
                 isRunning = false;
 
                 timeRemaining = 0f;
-                timerText.text = "Waktu Habis!";
+                displayText.text = "Waktu habis";
             }
         }
     }

@@ -11,7 +11,7 @@ public class Heartbeat : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         float distance = Vector3.Distance(point1.transform.position, point2.transform.position);
