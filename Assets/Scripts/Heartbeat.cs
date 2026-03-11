@@ -1,33 +1,53 @@
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.UI;
 public class Heartbeat : MonoBehaviour
 {
-    public GameObject point1;
-    public GameObject point2;
-    public AudioSource heartbeat;
-    void Start()
-    {
-        
-    }
+    
+    [Header("References")]
+    public GameObject player;
+    public GameObject enemy;
 
-    // Update is called once per frame
+    [Header("Audio")]
+    public AudioSource heartbeat;
+
+    [Header("UI Portrait")]
+    public Image portrait;
+    public Sprite takut;
+    public Sprite takutBanget;
+    public Sprite trauma;
+
     void Update()
     {
-        float distance = Vector3.Distance(point1.transform.position, point2.transform.position);
-        Debug.Log(distance);
+        float distance = Vector3.Distance(player.transform.position, enemy.transform.position);
 
-        if (distance > 20)
+        if (enemy != null)
         {
-            heartbeat.pitch = 1f;
+            // MUSUH SANGAT DEKAT
+            if (distance < 10f)
+            {
+                heartbeat.pitch = 3f;
+                portrait.sprite = trauma;
+            }
+
+            // MUSUH MENDEKAT
+            else if (distance < 20f)
+            {
+                heartbeat.pitch = 2f;
+                portrait.sprite = takutBanget;
+            }
+
+            // AMAN
+            else
+            {
+                heartbeat.pitch = 1f;
+                portrait.sprite = takut;
+            }
         }
-        else if (distance < 10)
-        {
-            heartbeat.pitch = 3f;
-        }
+
         else
         {
-            heartbeat.pitch = 2f;
+            heartbeat.pitch = 0f;
         }
     }
 }

@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 2641003154597626469}
   - component: {fileID: 2028534955776674687}
   - component: {fileID: 8232302850714981531}
-  - component: {fileID: 8830344757096167162}
+  - component: {fileID: 5848533354119271623}
   m_Layer: 0
   m_Name: Spot Light 2D
   m_TagString: Untagged
@@ -320,7 +320,7 @@ MonoBehaviour:
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
   m_ShadowsEnabled: 1
-  m_ShadowIntensity: 0.85
+  m_ShadowIntensity: 1
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
   m_ShadowVolumeIntensityEnabled: 1
@@ -355,10 +355,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Flashlight
   flashlight: {fileID: 2028534955776674687}
-  Detector: {fileID: 0}
-  shake: {fileID: 0}
---- !u!61 &8830344757096167162
-BoxCollider2D:
+  cinemachineCamera: {fileID: 0}
+  zoomInSize: 3
+  zoomSpeed: 5
+  shakeAmount: 5
+--- !u!60 &5848533354119271623
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -391,7 +393,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 5.03}
+  m_Offset: {x: 0, y: 5.99}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -401,5 +403,11 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3.23, y: 3.27}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 1}
+      - {x: -2.2041767, y: 0.67176247}
+      - {x: -1.5111368, y: -1.5674853}
+      - {x: 0.09313321, y: -5.590661}
+      - {x: 2.3360841, y: 0.7047386}
+  m_UseDelaunayMesh: 1

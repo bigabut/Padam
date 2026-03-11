@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1448700069376832737}
   - component: {fileID: 6903913684378559828}
   - component: {fileID: 7538728621830019706}
-  - component: {fileID: 3495974408788273960}
+  - component: {fileID: 1229515174304365718}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: monster
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 5655466163193012291}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.6480856, y: -3.710598, z: 0}
+  m_LocalPosition: {x: -1.1, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -94,7 +94,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -108,7 +108,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.0001, y: 0.0001}
+  m_Size: {x: 0.9587497, y: 0.862885}
   m_EdgeRadius: 0
 --- !u!212 &1448700069376832737
 SpriteRenderer:
@@ -181,7 +181,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae29c1bbf61896241b702b78e866df7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAi
-  target: {fileID: 0}
+  target: {fileID: 1160050509821997878, guid: 39858af64b9f0984aa95c5ecd64a18d5, type: 3}
+  spawner: {fileID: 8950212971375574876, guid: e85755eb7966cfe4492255debf064afd, type: 3}
+  runPoints:
+  - {fileID: 2859860596627560969, guid: 84f3ec1df4f1e2b4f9d26fea8fb497b6, type: 3}
+  - {fileID: 195855309885673035, guid: 5ca9286994d48064982cb5f93fed1d24, type: 3}
+  - {fileID: 7793105169071453196, guid: ae52e460908793943bde30bb7cb97b7a, type: 3}
+  - {fileID: 9116399753004999447, guid: 82579328f20730e4dac4130db178efed, type: 3}
+  - {fileID: 8596869135589047265, guid: 67861b6385b0c6a40b3cacd7b78b33b1, type: 3}
+  - {fileID: 1232279574628931911, guid: 4d5bde1220e5bc0479bac290bfacd64e, type: 3}
+  - {fileID: 4767518793385227481, guid: 00d13c299344360458bdbfa4d4cf1baa, type: 3}
+  - {fileID: 6535616888984200090, guid: d663fd2218dc6ca49a912e0bdbd372ac, type: 3}
 --- !u!195 &7538728621830019706
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -192,7 +202,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -204,7 +214,7 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3495974408788273960
+--- !u!114 &1229515174304365718
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,7 +244,7 @@ MonoBehaviour:
   m_InstanceId: 0
   m_ShadowShape2DComponent: {fileID: 1448700069376832737}
   m_ShadowShape2DProvider:
-    rid: 7415654617329434707
+    rid: 5015608251563901072
   m_ShadowCastingSource: 2
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
@@ -254,6 +264,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7415654617329434707
+    - rid: 5015608251563901072
       type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
