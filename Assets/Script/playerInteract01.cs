@@ -8,6 +8,11 @@ public class PlayerInteract: MonoBehaviour
     public GameObject baterai;    
     public GameObject mainGameUI;   
     public GameObject hintPaperUI;
+    public GameObject hintPaperUI2;
+    public GameObject hintPaperUI3;
+    public GameObject hintPaperUI4;
+
+
     public GameObject GeneratorUI;
     public GameObject generator;
     public GameObject jerigen;
@@ -19,11 +24,16 @@ public class PlayerInteract: MonoBehaviour
 
     public GameObject fixCable;   
     public GameObject hintPaper;
+    public GameObject hintPaper2;
+    public GameObject hintPaper3;
+    public GameObject hintPaper4;
+
+
 
     public Generator generatorTask;
 
     [Header("Pengaturan")]
-    public float interactDistance = 2f;
+    public float interactDistance =  1;
 
     private bool isTriggerFixCable = false;
     public bool taskFixCable = false;
@@ -90,6 +100,41 @@ public class PlayerInteract: MonoBehaviour
                 playerMovement.enabled = false;
             }
         }
+
+          float distanceHintPaper2 = Vector2.Distance(transform.position, hintPaper2.transform.position);
+
+        if (distanceHintPaper2 <= interactDistance)
+        {
+            if (interactAction.WasPressedThisFrame())
+            {
+                hintPaperUI2.SetActive(true);
+                playerMovement.enabled = false;
+            }
+        }
+
+          float distanceHintPaper3 = Vector2.Distance(transform.position, hintPaper3.transform.position);
+
+        if (distanceHintPaper3 <= interactDistance)
+        {
+            if (interactAction.WasPressedThisFrame())
+            {
+                hintPaperUI3.SetActive(true);
+                playerMovement.enabled = false;
+            }
+        }
+
+          float distanceHintPaper4 = Vector2.Distance(transform.position, hintPaper4.transform.position);
+
+        if (distanceHintPaper4<= interactDistance)
+        {
+            if (interactAction.WasPressedThisFrame())
+            {
+                hintPaperUI4.SetActive(true);
+                playerMovement.enabled = false;
+            }
+        }
+
+        
 
         float distanceTuas = Vector2.Distance(transform.position, tuas.transform.position);
 
