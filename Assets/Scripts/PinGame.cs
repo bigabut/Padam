@@ -10,12 +10,29 @@ public class PinGame : MonoBehaviour
     private string inputPIN = "";         
     public TextMeshProUGUI timerText;     
     public bool isRunning = true;          // 1 = true, 0 = false
-    public float timeRemaining = 15f;     
+    public float timeRemaining = 15f;   
+    public AudioSource audioSFX;  
 
+
+    void Start()
+    {
+       
+
+    if (timerText == null)
+        timerText = GetComponent<TextMeshProUGUI>();
+
+    if (displayText == null)
+        displayText = GetComponent<Text>();
+
+    if (audioSFX == null)
+        audioSFX = GetComponent<AudioSource>();
+
+    }
     void Update()
     {
-        if (isRunning && !isCorrect)
+        if (isRunning)
         {
+          
             if (timeRemaining > 0)
             {
                 timeRemaining -= Time.deltaTime;
@@ -37,10 +54,13 @@ public class PinGame : MonoBehaviour
 
     public void OnKeyPress(string key)
     {
-        if (isCorrect == false || isRunning)
+        if (isRunning)
         {
+            audioSFX.Play();
+
             if (key == "#") // submit
             {
+
                 if (inputPIN == correctPIN)
                 {
                     displayText.text = "BENAR";
