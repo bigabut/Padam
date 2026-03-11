@@ -2535,7 +2535,7 @@ GameObject:
   - component: {fileID: 1700391824497804581}
   - component: {fileID: 8726234982363751717}
   m_Layer: 5
-  m_Name: DisplayText
+  m_Name: DisplayText1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3291,7 +3291,7 @@ GameObject:
   - component: {fileID: 3551732098243614381}
   - component: {fileID: 4474611555233385689}
   m_Layer: 5
-  m_Name: TImerText
+  m_Name: TImerText1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
