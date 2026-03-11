@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
+
 public class Generator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public Image startProgressBar;
@@ -25,9 +26,12 @@ public class Generator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private bool isHolding = false;
 
     public AudioSource audioSource;
+    public AudioSource fillOil;
 
     void Start()
     {
+            audioSource.Stop();
+            fillOil.Stop();
         if(startProgressBar != null) startProgressBar.fillAmount = 0;
         if(taskProgressBar != null) taskProgressBar.fillAmount = 0;
 
@@ -54,8 +58,8 @@ public class Generator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 if(startProgressBar != null)
                     startProgressBar.fillAmount = startTimer / holdStartRequired;
 
-                if(!audioSource.isPlaying && startTimer > 0.1f)
-                    audioSource.Play();
+                
+                   
 
                 if(startTimer >= holdStartRequired)
                 {
@@ -75,7 +79,6 @@ public class Generator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 if(holdTimer >= holdTimeRequired)
                 {
                     CompleteTask();
-                    audioSource.Stop();
                 }
             }
         }
@@ -85,6 +88,22 @@ public class Generator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         isHolding = true;
         Debug.Log("Mulai tahan klik UI");
+         if(!generatorOpened && !timesout)
+            {
+                        audioSource.Play();
+
+                   
+
+                if(startTimer >= holdStartRequired)
+                {
+                   
+                    audioSource.Stop();
+                }
+            }
+            else if(generatorOpened && !taskCompleted)
+            {
+                    fillOil.Play();
+            }
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -93,6 +112,7 @@ public class Generator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         startTimer = 0f;
         if(startProgressBar != null) startProgressBar.fillAmount = 0;
         audioSource.Stop();
+        fillOil.Stop();
         Debug.Log("Lepas klik UI");
     }
 
@@ -108,7 +128,8 @@ public class Generator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if(taskProgressBar != null) taskProgressBar.fillAmount = 1f;
         if(timerText != null) timerText.text = "Task Complete!";
         Debug.Log("Generator fixed!");
-
+        audioSource.Stop();
+        fillOil.Stop();
         playerInteract.CloseGeneratorUI();
     }
 
