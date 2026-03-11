@@ -50,6 +50,7 @@ public class WireManager : MonoBehaviour, IPointerDownHandler {
                 started = false;
                 Debug.Log("Waktu habis!");
                 if (timerText != null) timerText.text = "00:00";
+                playerInteract.CloseFixCableUILose();
             }
 
             if (connectedPairs >= totalPairs) {

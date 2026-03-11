@@ -10,14 +10,18 @@ public class PinGame : MonoBehaviour
     private string inputPIN = "";         
     public TextMeshProUGUI timerText;     
     public bool isRunning = true;          // 1 = true, 0 = false
-    public float timeRemaining = 15f;   
+    public float timeRemaining;   
     public AudioSource audioSFX;  
+    public GameObject pinUI;
+    public PlayerInteract playerInteract;
+
+    
 
 
     void Start()
     {
        
-
+        timeRemaining =15f;
     if (timerText == null)
         timerText = GetComponent<TextMeshProUGUI>();
 
@@ -48,6 +52,8 @@ public class PinGame : MonoBehaviour
 
                 timeRemaining = 0f;
                 displayText.text = "Waktu habis";
+                playerInteract.closePinUILose();
+                
             }
         }
     }
@@ -66,6 +72,7 @@ public class PinGame : MonoBehaviour
                     displayText.text = "BENAR";
                     isCorrect = true;
                     isRunning = false; // stop timer
+                    playerInteract.closePinUI();
                 }
                 else
                 {
@@ -96,4 +103,5 @@ public class PinGame : MonoBehaviour
             }
         }
     }
+   
 }

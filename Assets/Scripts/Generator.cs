@@ -14,11 +14,11 @@ public class Generator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public float holdTimeRequired = 3f;    // waktu tahan untuk isi task
     public float missionTime = 15f;        // total waktu misi
 
-    public PlayerInteract01 playerInteract;
+    public PlayerInteract playerInteract;
 
     private float startTimer = 0f;
     private float holdTimer = 0f;
-    private float missionTimer = 0f;
+    public float missionTimer = 0f;
 
     private bool generatorOpened = false;
     private bool taskCompleted = false;
@@ -141,6 +141,7 @@ public class Generator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if(timerText != null) timerText.text = "Failed!";
         if(startProgressBar != null) startProgressBar.fillAmount = 0;
         if(taskProgressBar != null) taskProgressBar.fillAmount = 0;
+        playerInteract.CloseGeneratorUILose();
     }
 
     void UpdateTimerText()

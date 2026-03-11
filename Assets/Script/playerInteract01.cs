@@ -1,13 +1,18 @@
  using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInteract : MonoBehaviour
+public class PlayerInteract: MonoBehaviour
 {
     [Header("Referensi Objek")]
     public GameObject obeng;    
     public GameObject baterai;    
     public GameObject mainGameUI;   
     public GameObject hintPaperUI;
+    public GameObject GeneratorUI;
+    public GameObject generator;
+    public GameObject jerigen;
+    public GameObject pinUI;
+    public GameObject pin;
     public GameObject tuasUI;
     public GameObject tuas;
     public Transform interactFixCable;    
@@ -15,11 +20,20 @@ public class PlayerInteract : MonoBehaviour
     public GameObject fixCable;   
     public GameObject hintPaper;
 
+    public Generator generatorTask;
+
     [Header("Pengaturan")]
     public float interactDistance = 2f;
 
     private bool isTriggerFixCable = false;
     public bool taskFixCable = false;
+
+
+    private bool isTriggerGenerator = false;
+    public bool taskGenerator = false;
+    public bool taskPin = false;
+
+    
     public PlayerMovement playerMovement;
 
     // Input System
@@ -84,7 +98,7 @@ public class PlayerInteract : MonoBehaviour
             if (interactAction.WasPressedThisFrame())
             {
                 tuasUI.SetActive(true);
-               // playerMovement.enabled = false;
+               
             }
         }
 
@@ -95,7 +109,39 @@ public class PlayerInteract : MonoBehaviour
             if (interactAction.WasPressedThisFrame())
             {
                 baterai.SetActive(false);
-               // playerMovement.enabled = false;
+               
+            }
+        }
+         float distanceJerigen = Vector2.Distance(transform.position, jerigen.transform.position);
+
+        if (distanceJerigen <= interactDistance)
+        {
+            if (interactAction.WasPressedThisFrame())
+            {
+                jerigen.SetActive(false);
+                isTriggerGenerator = true;
+               
+            }
+        }
+        float distanceGenerator = Vector2.Distance(transform.position, generator.transform.position);
+
+        if (distanceGenerator <= interactDistance && isTriggerGenerator && !taskGenerator)
+        {
+            if (interactAction.WasPressedThisFrame())
+            {
+                GeneratorUI.SetActive(true);
+                generatorTask.missionTimer = generatorTask.missionTime;
+               
+            }
+        }
+           
+        float distancePin = Vector2.Distance(transform.position, pin.transform.position);
+
+        if (distancePin <= interactDistance )
+        {
+            if (interactAction.WasPressedThisFrame() && !taskPin)
+            {
+                pinUI.SetActive(true);
             }
         }
 
@@ -112,5 +158,35 @@ public class PlayerInteract : MonoBehaviour
 
         taskFixCable = true;
         Time.timeScale = 1f; 
+    }
+    public void CloseFixCableUILose()
+    {
+        fixCable.SetActive(false);
+        mainGameUI.SetActive(true);
+
+        if (playerMovement != null) playerMovement.enabled = true;
+
+        Time.timeScale = 1f; 
+    }
+
+    public void CloseGeneratorUI()
+    {
+        GeneratorUI.SetActive(false);
+        taskGenerator = true;
+    }
+    public void CloseGeneratorUILose()
+    {
+        GeneratorUI.SetActive(false);
+    }
+    
+    public void closePinUI()
+    {
+        pinUI.SetActive(false);
+        taskPin = true;
+    }
+
+    public void closePinUILose()
+    {
+        pinUI.SetActive(false);
     }
 }
