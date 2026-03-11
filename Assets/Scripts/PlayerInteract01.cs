@@ -16,7 +16,7 @@ public class PlayerInteract01 : MonoBehaviour
     private void Start()
     {
         generatorCanvas.SetActive(false);
-        playerMovement = GetComponent<PlayerMovement>();  
+        playerMovement = GetComponent<PlayerMovement01>();  
     }
 
     private void Update()
