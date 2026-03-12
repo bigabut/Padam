@@ -13,8 +13,8 @@ public class EnemyAi : MonoBehaviour
     public LayerMask wallLayer;
 
     private NavMeshAgent agent;
-    private SpriteRenderer sprite;
     private Light2D flashLight;
+    private Animator animator;
 
     float normalSpeed = 5f;
     float slowSpeed = 1f;
@@ -27,10 +27,13 @@ public class EnemyAi : MonoBehaviour
 
     Transform flashlightSource;
 
+    // menyimpan arah terakhir
+    Vector2 lastMoveDir = Vector2.down;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         flashLight = GetComponentInChildren<Light2D>();
 
         agent.updateRotation = false;
@@ -45,52 +48,65 @@ public class EnemyAi : MonoBehaviour
 
     void Update()
     {
-        if (target != null && !triggered)
-        {
+        if (triggered) return;
+
+        if (target != null)
             agent.SetDestination(target.position);
-        }
+
+        UpdateAnimationDirection();
 
         HandleFlashlight();
     }
 
+    void UpdateAnimationDirection()
+    {
+        Vector2 velocity = agent.velocity;
+
+        if (velocity.magnitude > 0.1f)
+        {
+            lastMoveDir = velocity.normalized;
+        }
+
+        animator.SetFloat("MoveX", lastMoveDir.x);
+        animator.SetFloat("MoveY", lastMoveDir.y);
+    }
+
     void HandleFlashlight()
     {
-        if (inFlashlight && flashlightSource != null && !triggered)
+        if (!inFlashlight || flashlightSource == null)
         {
-            Vector2 direction = transform.position - flashlightSource.position;
-            float distance = direction.magnitude;
+            agent.speed = normalSpeed;
+            flashlightTimer = 0f;
+            return;
+        }
 
-            RaycastHit2D hit = Physics2D.Raycast(
-                flashlightSource.position,
-                direction.normalized,
-                distance,
-                wallLayer
-            );
+        Vector2 direction = transform.position - flashlightSource.position;
+        float distance = direction.magnitude;
 
-            Debug.DrawRay(flashlightSource.position, direction.normalized * distance, Color.blue);
+        RaycastHit2D hit = Physics2D.Raycast(
+            flashlightSource.position,
+            direction.normalized,
+            distance,
+            wallLayer
+        );
 
-            if (hit.collider == null)
+        Debug.DrawRay(flashlightSource.position, direction.normalized * distance, Color.blue);
+
+        if (hit.collider == null)
+        {
+            flashlightTimer += Time.deltaTime;
+            agent.speed = slowSpeed;
+
+            if (flashlightTimer >= flashlightThreshold)
             {
-                flashlightTimer += Time.deltaTime;
-                agent.speed = slowSpeed;
-
-                Debug.Log("Monster kena cahaya");
-
-                if (flashlightTimer >= flashlightThreshold)
-                {
-                    triggered = true;
-                    StartCoroutine(FlashbangEffect());
-                }
-            }
-            else
-            {
-                Debug.Log("Cahaya terhalang tembok");
+                triggered = true;
+                StartCoroutine(FlashbangEffect());
             }
         }
         else
         {
-            if (!triggered)
-                agent.speed = normalSpeed;
+            flashlightTimer = 0f;
+            agent.speed = normalSpeed;
         }
     }
 
@@ -100,8 +116,6 @@ public class EnemyAi : MonoBehaviour
         {
             inFlashlight = true;
             flashlightSource = other.transform;
-
-            Debug.Log("Monster masuk area flashlight");
         }
     }
 
@@ -112,16 +126,12 @@ public class EnemyAi : MonoBehaviour
             inFlashlight = false;
             flashlightTimer = 0f;
             flashlightSource = null;
-
-            Debug.Log("Monster keluar dari flashlight");
         }
     }
 
     IEnumerator FlashbangEffect()
     {
         agent.isStopped = true;
-
-        sprite.color = Color.white;
 
         if (flashLight != null)
             flashLight.intensity = 25f;
@@ -133,7 +143,8 @@ public class EnemyAi : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        lari.Play();
+        if (lari != null)
+            lari.Play();
 
         Despawn();
     }
@@ -141,9 +152,7 @@ public class EnemyAi : MonoBehaviour
     void Despawn()
     {
         if (spawner != null)
-        {
             spawner.StartRespawn();
-        }
 
         Destroy(gameObject);
     }
