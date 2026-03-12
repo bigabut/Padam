@@ -22,7 +22,7 @@ public class WireManager : MonoBehaviour, IPointerDownHandler {
     public float timer;
     private bool started = false;
     private bool openBox = false;
-
+    public AudioSource cableOnTargetSFX;
     [Header("UI")]
     public TMP_Text timerText;
 
@@ -45,7 +45,7 @@ public class WireManager : MonoBehaviour, IPointerDownHandler {
                 timer -= Time.unscaledDeltaTime;
                 UpdateTimerText();
             }
-
+ 
             if (timer <= 0f && !Done) {
                 Debug.Log("Waktu habis!");
                 connectedPairs = 0;
@@ -99,6 +99,7 @@ public class WireManager : MonoBehaviour, IPointerDownHandler {
     }
 
     public void WireConnected() {
+        cableOnTargetSFX.Play();
         connectedPairs++;
         Debug.Log("Kabel terhubung! Total: " + connectedPairs);
 

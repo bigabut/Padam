@@ -257,6 +257,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &317002592 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8568413112218852744, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+  m_PrefabInstance: {fileID: 3633457724846163821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &320094629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -585,6 +596,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3810713680237622445, guid: 428200c075488404a9af71fd4d449d20, type: 3}
   m_PrefabInstance: {fileID: 1010911271}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &492793064 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3869870551365112471, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+  m_PrefabInstance: {fileID: 3633457724846163821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a43a0ce6a037974480fa12ed1d61a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CableLines
+--- !u!114 &516049555 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 601007226014549932, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+  m_PrefabInstance: {fileID: 3633457724846163821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a43a0ce6a037974480fa12ed1d61a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CableLines
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,6 +928,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 149469263708099480, guid: 275792a8fcff22b4e9682c6ba30aa408, type: 3}
   m_PrefabInstance: {fileID: 320094629}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &889971484 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8335829396508635040, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+  m_PrefabInstance: {fileID: 3633457724846163821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a43a0ce6a037974480fa12ed1d61a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CableLines
 --- !u!1 &964894199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1135,17 @@ PrefabInstance:
       addedObject: {fileID: 964894200}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 428200c075488404a9af71fd4d449d20, type: 3}
+--- !u!114 &1043630896 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7719015600356072228, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+  m_PrefabInstance: {fileID: 3633457724846163821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &1115145929
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,6 +1482,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1183906556 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1538267256373204206, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+  m_PrefabInstance: {fileID: 3633457724846163821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &1333053335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1674,6 +1740,10 @@ PrefabInstance:
       propertyPath: playerInteract
       value: 
       objectReference: {fileID: 2108900195}
+    - target: {fileID: 8319930114598478429, guid: 16e4e6c77f9a90f458c2658e227978de, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: c242c2ebc88ceee4b8fc4c11940bfd57, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1687,6 +1757,39 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4066923127145312668, guid: 428200c075488404a9af71fd4d449d20, type: 3}
   m_PrefabInstance: {fileID: 1010911271}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1517206031 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 552288545725926646, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+  m_PrefabInstance: {fileID: 3633457724846163821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &1613440490 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8968655008672831900, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+  m_PrefabInstance: {fileID: 3633457724846163821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &1613853320 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 812643299125084241, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+  m_PrefabInstance: {fileID: 3633457724846163821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a43a0ce6a037974480fa12ed1d61a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CableLines
 --- !u!1 &1628847328 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5326718377169968544, guid: 16e4e6c77f9a90f458c2658e227978de, type: 3}
@@ -1822,6 +1925,39 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 275792a8fcff22b4e9682c6ba30aa408, type: 3}
+--- !u!114 &1966194086 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3450929530151052538, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+  m_PrefabInstance: {fileID: 3633457724846163821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &2034301355 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7810816128244756919, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+  m_PrefabInstance: {fileID: 3633457724846163821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &2041312968 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2193706221850810464, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+  m_PrefabInstance: {fileID: 3633457724846163821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &2041526899
 GameObject:
   m_ObjectHideFlags: 0
@@ -2334,6 +2470,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8860866683501395954}
     - target: {fileID: 6861845976161963046, guid: 339ca384a9ec4904fb95b3c73db3d103, type: 3}
+      propertyPath: wireTask
+      value: 
+      objectReference: {fileID: 8860866683501395955}
+    - target: {fileID: 6861845976161963046, guid: 339ca384a9ec4904fb95b3c73db3d103, type: 3}
       propertyPath: generator
       value: 
       objectReference: {fileID: 2097202616}
@@ -2558,14 +2698,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1191462179191600776, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: cableImage
+      value: 
+      objectReference: {fileID: 1183906556}
+    - target: {fileID: 1775719883235458303, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: cableImage
+      value: 
+      objectReference: {fileID: 2041312968}
     - target: {fileID: 3249842581080374729, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
       propertyPath: timeLimit
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3249842581080374729, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
       propertyPath: playerInteract
       value: 
       objectReference: {fileID: 2108900195}
+    - target: {fileID: 3249842581080374729, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: wireEnds.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3249842581080374729, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: wireLines.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3249842581080374729, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: 'wireLines.Array.data[0]'
+      value: 
+      objectReference: {fileID: 516049555}
+    - target: {fileID: 3249842581080374729, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: 'wireLines.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1613853320}
+    - target: {fileID: 3249842581080374729, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: 'wireLines.Array.data[2]'
+      value: 
+      objectReference: {fileID: 492793064}
+    - target: {fileID: 3249842581080374729, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: 'wireLines.Array.data[3]'
+      value: 
+      objectReference: {fileID: 889971484}
+    - target: {fileID: 3423599030647749475, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: cableImage
+      value: 
+      objectReference: {fileID: 2034301355}
+    - target: {fileID: 4436300090095721354, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: cableImage
+      value: 
+      objectReference: {fileID: 317002592}
+    - target: {fileID: 4982332778847207994, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: cableImage
+      value: 
+      objectReference: {fileID: 1043630896}
     - target: {fileID: 5199309903640670285, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
       propertyPath: m_Camera
       value: 
@@ -2586,6 +2770,14 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 6856503345188927133, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: cableImage
+      value: 
+      objectReference: {fileID: 1966194086}
+    - target: {fileID: 6883487252787561896, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: cableImage
+      value: 
+      objectReference: {fileID: 1613440490}
     - target: {fileID: 8831135376631017286, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2666,6 +2858,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8985562139260449636, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+      propertyPath: cableImage
+      value: 
+      objectReference: {fileID: 1517206031}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2773,6 +2969,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5908389038013927727, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
   m_PrefabInstance: {fileID: 3633457724846163821}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8860866683501395955 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3249842581080374729, guid: e7ddd45fd5414c14492c4c2ec9342b45, type: 3}
+  m_PrefabInstance: {fileID: 3633457724846163821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8860866683501395954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17082f7efeb7fca42895737fc5a0e845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WireManager
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
