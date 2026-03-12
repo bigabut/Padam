@@ -9,6 +9,9 @@ TagManager:
   - yellowTarget
   - greenTarget
   - CableEnd
+  - monster
+  - flashlight
+  - Monster Spawner
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Wall
   - 
   - 
   - 
