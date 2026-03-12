@@ -34,7 +34,7 @@ public class PlayerInteract: MonoBehaviour
     public WireManager wireTask;
 
     [Header("Pengaturan")]
-    public float interactDistance =  1;
+    public float interactDistance =  3f;
 
     private bool isTriggerFixCable = false;
     public bool taskFixCable = false;
@@ -45,7 +45,7 @@ public class PlayerInteract: MonoBehaviour
     public bool taskPin = false;
 
     
-    public PlayerMovement playerMovement;
+    public PlayerMovement01 playerMovement;
 
     // Input System
     private InputAction interactAction;
@@ -62,7 +62,7 @@ public class PlayerInteract: MonoBehaviour
     private void Start()
     {
         fixCable.SetActive(false);
-        playerMovement = GetComponent<PlayerMovement>();
+        playerMovement = GetComponent<PlayerMovement01>();
     }
 
     private void Update()

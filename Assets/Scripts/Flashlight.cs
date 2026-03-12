@@ -63,7 +63,7 @@ public class Flashlight : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && currentBattery > 0)
+        if (Input.GetKeyDown(KeyCode.Q) && currentBattery > 0)
         {
             flashlight.enabled = !flashlight.enabled;
             click.Play();

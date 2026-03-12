@@ -6,13 +6,12 @@ public class CableEnds : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public CableLines cableLine;
     public Sprite cableSprite;
     public WireManager wireManager;
-    public AudioSource dragCabel;
+    
 
     public bool isConnected = false; // flag port sudah dipakai
 
     void Awake() {
         rectTransform = GetComponent<RectTransform>();
-        dragCabel.Stop();
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
@@ -24,14 +23,12 @@ public class CableEnds : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnDrag(PointerEventData eventData) {
         if (!wireManager.Done && !isConnected) {
             cableLine.SetTempEnd(eventData.position);
-                dragCabel.Play();
         }
     }
 
     public void OnEndDrag(PointerEventData eventData) {
         if (!wireManager.Done && !isConnected) {
             cableLine.TrySnapToPort(cableSprite, eventData.position);
-            dragCabel.Stop();
         }
     }
 }
