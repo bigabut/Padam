@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using System.Collections;
 
 public class MonsterSpawner : MonoBehaviour
@@ -7,11 +8,15 @@ public class MonsterSpawner : MonoBehaviour
     public Transform player;
     public Transform[] spawnPoints;
 
+    
+    public AudioSource ngejar;
+
     public float respawnTime = 60f;
 
     public void StartRespawn()
     {
         StartCoroutine(RespawnRoutine());
+        
     }
 
     IEnumerator RespawnRoutine()
@@ -20,11 +25,28 @@ public class MonsterSpawner : MonoBehaviour
 
         Transform spawnPoint = GetFarthestPoint();
 
-        GameObject monster = Instantiate(monsterPrefab, spawnPoint.position, Quaternion.identity);
+        if (spawnPoint == null)
+        {
+            Debug.LogError("Tidak ada spawn point!");
+            yield break;
+        }
 
-        EnemyAi ai = monster.GetComponent<EnemyAi>();
-        ai.target = player;
-        ai.spawner = this;
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(spawnPoint.position, out hit, 2f, NavMesh.AllAreas))
+        {
+            GameObject monster = Instantiate(monsterPrefab, hit.position, Quaternion.identity);
+
+            EnemyAi ai = monster.GetComponent<EnemyAi>();
+            ai.target = player;
+            ai.spawner = this;
+            ngejar.Play();
+            Debug.Log("Monster respawn di NavMesh");
+        }
+        else
+        {
+            Debug.LogError("SpawnPoint tidak berada di NavMesh!");
+        }
     }
 
     Transform GetFarthestPoint()

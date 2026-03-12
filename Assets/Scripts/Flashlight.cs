@@ -7,6 +7,9 @@ public class Flashlight : MonoBehaviour
     [Header("References")]
     [SerializeField] private Light2D flashlight;
     [SerializeField] private CinemachineCamera cinemachineCamera;
+    [SerializeField] private CinemachineTargetGroup targetGroup;
+
+    public Transform defaultTrack;
 
     [Header("Zoom Settings")]
     [SerializeField] private float zoomInSize = 3f;
@@ -14,9 +17,6 @@ public class Flashlight : MonoBehaviour
 
     [Header("Shake Settings")]
     [SerializeField] private float shakeAmount = 5f;
-
-    [Header("Obstacle Layer")]
-    [SerializeField] private LayerMask wallLayer;
 
     [Header("Battery Settings")]
     [SerializeField] private float maxBattery = 100f;
@@ -27,13 +27,15 @@ public class Flashlight : MonoBehaviour
     [SerializeField] private float flickerRangeDetail = 0.2f;
     [SerializeField] private float flickerIntensity = 1f;
 
+    public AudioSource click;
+    public AudioSource flashlightEffect;
+
     private float currentBattery;
 
     private CinemachineBasicMultiChannelPerlin noise;
     private float defaultSize;
 
     private bool monsterInside = false;
-    private Transform monsterTransform;
 
     private float baseIntensity;
 
@@ -52,33 +54,28 @@ public class Flashlight : MonoBehaviour
         baseIntensity = flashlight.intensity;
     }
 
+    void Start()
+    {
+        defaultTrack = cinemachineCamera.Follow;
+
+        targetGroup.AddMember(defaultTrack, 2f, 1f);
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && currentBattery > 0)
         {
             flashlight.enabled = !flashlight.enabled;
+            click.Play();
         }
 
         HandleBattery();
 
         bool effectActive = false;
 
-        if (monsterInside && flashlight.enabled && monsterTransform != null)
+        if (monsterInside && flashlight.enabled)
         {
-            Vector2 direction = monsterTransform.position - transform.position;
-            float distance = direction.magnitude;
-
-            RaycastHit2D hit = Physics2D.Raycast(
-                transform.position,
-                direction.normalized,
-                distance,
-                wallLayer
-            );
-
-            if (!hit)
-            {
-                effectActive = true;
-            }
+            effectActive = true;
         }
 
         // Camera Shake
@@ -132,8 +129,10 @@ public class Flashlight : MonoBehaviour
         if (other.CompareTag("monster"))
         {
             monsterInside = true;
-            monsterTransform = other.transform;
-            
+
+            flashlightEffect.Play();
+
+            targetGroup.AddMember(other.transform, 1f, 1f);
         }
     }
 
@@ -142,7 +141,10 @@ public class Flashlight : MonoBehaviour
         if (other.CompareTag("monster"))
         {
             monsterInside = false;
-            monsterTransform = null;
+
+            flashlightEffect.Stop();
+
+            targetGroup.RemoveMember(other.transform);
         }
     }
 }

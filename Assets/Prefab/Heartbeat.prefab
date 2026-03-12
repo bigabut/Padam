@@ -45,9 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a48cfba7095a804198f2fb8ee20ae9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Heartbeat
-  point1: {fileID: 802508337049256145, guid: 39858af64b9f0984aa95c5ecd64a18d5, type: 3}
-  point2: {fileID: 5655466163193012291, guid: 9b75406fbcaed1d4e89fce55a616acc7, type: 3}
+  player: {fileID: 802508337049256145, guid: 39858af64b9f0984aa95c5ecd64a18d5, type: 3}
+  enemy: {fileID: 5655466163193012291, guid: 9b75406fbcaed1d4e89fce55a616acc7, type: 3}
   heartbeat: {fileID: 5961833048386501526}
+  portrait: {fileID: 0}
+  takut: {fileID: -6357252675656868890, guid: d2d858bd7504b0a4d87c9ba7cac08218, type: 3}
+  takutBanget: {fileID: -8267050604370919978, guid: c63af33d33a6d3e46b83b0f207847d44, type: 3}
+  trauma: {fileID: -7663250909674490475, guid: 47e4a409535045c44af65a65f1041740, type: 3}
 --- !u!82 &5961833048386501526
 AudioSource:
   m_ObjectHideFlags: 0

@@ -1,15 +1,20 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.Universal;
 using System.Collections;
 
 public class EnemyAi : MonoBehaviour
 {
     public Transform target;
     public MonsterSpawner spawner;
+    public AudioSource lari;
 
-    [SerializeField] Transform[] runPoints;
+    [Header("Raycast Settings")]
+    public LayerMask wallLayer;
 
-    NavMeshAgent agent;
+    private NavMeshAgent agent;
+    private SpriteRenderer sprite;
+    private Light2D flashLight;
 
     float normalSpeed = 5f;
     float slowSpeed = 1f;
@@ -17,25 +22,30 @@ public class EnemyAi : MonoBehaviour
     float flashlightTimer = 0f;
     float flashlightThreshold = 2f;
 
-    bool isFleeing = false;
     bool inFlashlight = false;
+    bool triggered = false;
 
-    SpriteRenderer sprite;
+    Transform flashlightSource;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         sprite = GetComponent<SpriteRenderer>();
+        flashLight = GetComponentInChildren<Light2D>();
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-
         agent.speed = normalSpeed;
+
+        if (flashLight != null)
+            flashLight.intensity = 0f;
+
+        Debug.Log("Monster Spawned");
     }
 
     void Update()
     {
-        if (!isFleeing)
+        if (target != null && !triggered)
         {
             agent.SetDestination(target.position);
         }
@@ -45,96 +55,95 @@ public class EnemyAi : MonoBehaviour
 
     void HandleFlashlight()
     {
-        if (inFlashlight && !isFleeing)
+        if (inFlashlight && flashlightSource != null && !triggered)
         {
-            flashlightTimer += Time.deltaTime;
+            Vector2 direction = transform.position - flashlightSource.position;
+            float distance = direction.magnitude;
 
-            agent.speed = slowSpeed;
+            RaycastHit2D hit = Physics2D.Raycast(
+                flashlightSource.position,
+                direction.normalized,
+                distance,
+                wallLayer
+            );
 
-            if (flashlightTimer >= flashlightThreshold)
+            Debug.DrawRay(flashlightSource.position, direction.normalized * distance, Color.blue);
+
+            if (hit.collider == null)
             {
-                flashlightTimer = 0f;
-                StartCoroutine(FlashlightEffect());
+                flashlightTimer += Time.deltaTime;
+                agent.speed = slowSpeed;
+
+                Debug.Log("Monster kena cahaya");
+
+                if (flashlightTimer >= flashlightThreshold)
+                {
+                    triggered = true;
+                    StartCoroutine(FlashbangEffect());
+                }
+            }
+            else
+            {
+                Debug.Log("Cahaya terhalang tembok");
             }
         }
         else
         {
-            flashlightTimer = 0f;
-
-            if (!isFleeing)
-            {
+            if (!triggered)
                 agent.speed = normalSpeed;
-            }
         }
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("flashlight") && !isFleeing)
+        if (other.CompareTag("flashlight"))
         {
             inFlashlight = true;
+            flashlightSource = other.transform;
+
+            Debug.Log("Monster masuk area flashlight");
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("flashlight") && !isFleeing)
+        if (other.CompareTag("flashlight"))
         {
             inFlashlight = false;
+            flashlightTimer = 0f;
+            flashlightSource = null;
+
+            Debug.Log("Monster keluar dari flashlight");
         }
     }
 
-    IEnumerator FlashlightEffect()
+    IEnumerator FlashbangEffect()
     {
-        isFleeing = true;
-        inFlashlight = false;
+        agent.isStopped = true;
 
-        // efek flash kesakitan
-        sprite.color = Color.red;
-        yield return new WaitForSeconds(0.15f);
         sprite.color = Color.white;
 
-        yield return new WaitForSeconds(0.2f);
+        if (flashLight != null)
+            flashLight.intensity = 25f;
 
-        // monster panik lari cepat
-        agent.speed = 20f;
+        yield return new WaitForSeconds(0.15f);
 
-        Transform fleePoint = GetFarthestPoint();
+        if (flashLight != null)
+            flashLight.intensity = 0f;
 
-        if (fleePoint != null)
-        {
-            agent.SetDestination(fleePoint.position);
-            StartCoroutine(CheckArrival(fleePoint));
-        }
+        yield return new WaitForSeconds(0.1f);
+
+        lari.Play();
+
+        Despawn();
     }
 
-    Transform GetFarthestPoint()
+    void Despawn()
     {
-        Transform farthest = null;
-        float maxDistance = 0f;
-
-        foreach (Transform point in runPoints)
+        if (spawner != null)
         {
-            float dist = Vector2.Distance(point.position, target.position);
-
-            if (dist > maxDistance)
-            {
-                maxDistance = dist;
-                farthest = point;
-            }
+            spawner.StartRespawn();
         }
-
-        return farthest;
-    }
-
-    IEnumerator CheckArrival(Transform point)
-    {
-        while (Vector2.Distance(transform.position, point.position) > 0.5f)
-        {
-            yield return null;
-        }
-
-        spawner.StartRespawn();
 
         Destroy(gameObject);
     }
