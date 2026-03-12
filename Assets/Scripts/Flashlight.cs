@@ -11,6 +11,9 @@ public class Flashlight : MonoBehaviour
 
     public Transform defaultTrack;
 
+    [Header("Raycast Settings")]
+    [SerializeField] private LayerMask wallLayer;
+
     [Header("Zoom Settings")]
     [SerializeField] private float zoomInSize = 3f;
     [SerializeField] private float zoomSpeed = 5f;
@@ -36,6 +39,7 @@ public class Flashlight : MonoBehaviour
     private float defaultSize;
 
     private bool monsterInside = false;
+    private Transform currentMonster;
 
     private float baseIntensity;
 
@@ -73,9 +77,21 @@ public class Flashlight : MonoBehaviour
 
         bool effectActive = false;
 
-        if (monsterInside && flashlight.enabled)
+        if (monsterInside && flashlight.enabled && HasLineOfSight())
         {
             effectActive = true;
+        }
+
+        // AUDIO hanya aktif jika benar-benar terlihat
+        if (effectActive)
+        {
+            if (!flashlightEffect.isPlaying)
+                flashlightEffect.Play();
+        }
+        else
+        {
+            if (flashlightEffect.isPlaying)
+                flashlightEffect.Stop();
         }
 
         // Camera Shake
@@ -124,13 +140,29 @@ public class Flashlight : MonoBehaviour
         return flickerAmount;
     }
 
+    bool HasLineOfSight()
+    {
+        if (currentMonster == null) return false;
+
+        Vector2 direction = currentMonster.position - transform.position;
+        float distance = direction.magnitude;
+
+        RaycastHit2D hit = Physics2D.Raycast(
+            transform.position,
+            direction.normalized,
+            distance,
+            wallLayer
+        );
+
+        return hit.collider == null;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("monster"))
         {
             monsterInside = true;
-
-            flashlightEffect.Play();
+            currentMonster = other.transform;
 
             targetGroup.AddMember(other.transform, 1f, 1f);
         }
@@ -141,8 +173,7 @@ public class Flashlight : MonoBehaviour
         if (other.CompareTag("monster"))
         {
             monsterInside = false;
-
-            flashlightEffect.Stop();
+            currentMonster = null;
 
             targetGroup.RemoveMember(other.transform);
         }

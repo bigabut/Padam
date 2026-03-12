@@ -40,7 +40,8 @@ public class PinGame : MonoBehaviour
           
             if (timeRemaining > 0)
             {
-                timeRemaining -= Time.deltaTime;
+                timeRemaining -= Time.unscaledDeltaTime; 
+
                 int minutes = Mathf.FloorToInt(timeRemaining / 60);   // bagi 60
                 int seconds = Mathf.FloorToInt(timeRemaining % 60);   // sisa bagi 60
 

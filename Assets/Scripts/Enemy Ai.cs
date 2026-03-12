@@ -27,7 +27,6 @@ public class EnemyAi : MonoBehaviour
 
     Transform flashlightSource;
 
-    // menyimpan arah terakhir
     Vector2 lastMoveDir = Vector2.down;
 
     void Start()
@@ -115,7 +114,7 @@ public class EnemyAi : MonoBehaviour
         if (other.CompareTag("flashlight"))
         {
             inFlashlight = true;
-            flashlightSource = other.transform;
+            flashlightSource = other.transform.root;
         }
     }
 

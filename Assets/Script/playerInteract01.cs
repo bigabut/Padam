@@ -190,6 +190,7 @@ public class PlayerInteract: MonoBehaviour
             if (interactAction.WasPressedThisFrame() && !taskPin)
             {
                 pinUI.SetActive(true);
+                Time.timeScale = 0; 
             }
         }
 
