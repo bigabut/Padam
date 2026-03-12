@@ -6,7 +6,7 @@ public class PinGame : MonoBehaviour
 {
     public Text displayText;              // Text biasa
     private bool isCorrect = false;       
-    public string correctPIN = "1234";    // PIN yang benar
+    public string correctPIN = "7325";    // PIN yang benar
     private string inputPIN = "";         
     public TextMeshProUGUI timerText;     
     public bool isRunning = true;          // 1 = true, 0 = false

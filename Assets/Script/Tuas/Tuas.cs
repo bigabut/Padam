@@ -7,6 +7,7 @@ public class Tuas : MonoBehaviour, IPointerDownHandler
     public GameObject upTuas;
     public GameObject downTuas;
     public GameObject tuasUI;
+    public GameObject pintuKeluar;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class Tuas : MonoBehaviour, IPointerDownHandler
     {
         yield return new WaitForSeconds(2f); 
         tuasUI.SetActive(false);
+        pintuKeluar.SetActive(false);
         
         Debug.Log("Kode dijalankan setelah delay!");
     }
