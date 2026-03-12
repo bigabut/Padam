@@ -32,6 +32,7 @@ public class PlayerInteract: MonoBehaviour
 
     public Generator generatorTask;
     public WireManager wireTask;
+    public PinGame pinTask;
 
     [Header("Pengaturan")]
     public float interactDistance =  3f;
@@ -75,8 +76,8 @@ public class PlayerInteract: MonoBehaviour
             {
                 fixCable.SetActive(true);
                wireTask.timer = wireTask.timeLimit;
+                Time.timeScale = 0; 
 
-                if (playerMovement != null) playerMovement.enabled = false;
             }
         }
 
@@ -99,6 +100,8 @@ public class PlayerInteract: MonoBehaviour
             {
                 hintPaperUI.SetActive(true);
                 playerMovement.enabled = false;
+                Time.timeScale = 0; 
+
             }
         }
 
@@ -110,6 +113,8 @@ public class PlayerInteract: MonoBehaviour
             {
                 hintPaperUI2.SetActive(true);
                 playerMovement.enabled = false;
+                Time.timeScale = 0; 
+
             }
         }
 
@@ -121,6 +126,8 @@ public class PlayerInteract: MonoBehaviour
             {
                 hintPaperUI3.SetActive(true);
                 playerMovement.enabled = false;
+                Time.timeScale = 0; 
+
             }
         }
 
@@ -132,6 +139,8 @@ public class PlayerInteract: MonoBehaviour
             {
                 hintPaperUI4.SetActive(true);
                 playerMovement.enabled = false;
+                Time.timeScale = 0; 
+
             }
         }
 
@@ -144,6 +153,8 @@ public class PlayerInteract: MonoBehaviour
             if (interactAction.WasPressedThisFrame())
             {
                 tuasUI.SetActive(true);
+                Time.timeScale = 0; 
+
                
             }
         }
@@ -179,7 +190,8 @@ public class PlayerInteract: MonoBehaviour
                 generatorTask.missionTimer = generatorTask.missionTime;
                 generatorTask.audioSource.Stop();
                 generatorTask.fillOil.Stop();
-               
+                Time.timeScale = 0; 
+
             }
         }
            
@@ -191,6 +203,7 @@ public class PlayerInteract: MonoBehaviour
             {
                 pinUI.SetActive(true);
                 Time.timeScale = 0; 
+                pinTask.timeRemaining =15f;
             }
         }
 
@@ -225,16 +238,22 @@ public class PlayerInteract: MonoBehaviour
     public void CloseGeneratorUILose()
     {
         GeneratorUI.SetActive(false);
+        Time.timeScale = 1f; 
+
     }
     
     public void closePinUI()
     {
         pinUI.SetActive(false);
         taskPin = true;
+        Time.timeScale = 1f; 
+
     }
 
     public void closePinUILose()
     {
         pinUI.SetActive(false);
+        Time.timeScale = 1f; 
+
     }
 }

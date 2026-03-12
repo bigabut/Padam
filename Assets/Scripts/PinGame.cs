@@ -50,8 +50,7 @@ public class PinGame : MonoBehaviour
             else
             {
                 timeRemaining = 0;
-                isRunning = false;
-
+ 
                 timeRemaining = 0f;
                 displayText.text = "Waktu habis";
                 playerInteract.closePinUILose();

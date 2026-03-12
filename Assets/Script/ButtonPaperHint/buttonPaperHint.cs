@@ -9,6 +9,7 @@ public class ButtonPaperHint : MonoBehaviour
     {
         if (targetUI != null)
             targetUI.SetActive(false);
-            playerInteract.playerMovement.enabled = true;
+            Time.timeScale = 1; 
+
     }
 }
