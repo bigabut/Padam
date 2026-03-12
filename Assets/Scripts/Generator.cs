@@ -135,12 +135,11 @@ public class Generator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     void FailMission()
     {
-        generatorOpened = false;
-        taskCompleted = false;
-        timesout = true;
+       
         if(timerText != null) timerText.text = "Failed!";
         if(startProgressBar != null) startProgressBar.fillAmount = 0;
         if(taskProgressBar != null) taskProgressBar.fillAmount = 0;
+        generatorOpened = false;
         playerInteract.CloseGeneratorUILose();
     }
 

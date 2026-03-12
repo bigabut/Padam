@@ -20,14 +20,14 @@ public class CableLines : MonoBehaviour {
     }
 
     public void TrySnapToPort(Sprite sprite, Vector3 cursorPos) {
-        if (wireManager.Done) return; // stop kalau sudah selesai
+        if (wireManager.Done) return;
 
         CableEnds[] ports = FindObjectsOfType<CableEnds>();
         foreach (var port in ports) {
             if (port.cableSprite == sprite && !port.isConnected) {
                 float dist = Vector3.Distance(cursorPos, port.rectTransform.position);
                 if (dist < 50f) {
-                    port.isConnected = true; // tandai port sudah dipakai
+                    port.isConnected = true;
                     endPoint = port.rectTransform;
                     UpdateCable(startPoint.position, endPoint.position);
                     wireManager.WireConnected();
@@ -36,8 +36,28 @@ public class CableLines : MonoBehaviour {
             }
         }
 
-        // kalau gagal snap → balik ke awal
-        UpdateCable(startPoint.position, startPoint.position);
+        // gagal snap → balik ke awal
+        if (startPoint != null) {
+            UpdateCable(startPoint.position, startPoint.position);
+        }
+    }
+
+    // Reset kabel ke posisi awal
+    public void ResetCable() {
+        if (endPoint != null) {
+            CableEnds port = endPoint.GetComponent<CableEnds>();
+            if (port != null) {
+                port.isConnected = false;
+            }
+        }
+
+        endPoint = null;
+
+        if (startPoint != null) {
+            UpdateCable(startPoint.position, startPoint.position);
+        } else {
+            Debug.LogWarning("ResetCable dipanggil tapi startPoint masih null!");
+        }
     }
 
     private void UpdateCable(Vector3 a, Vector3 b) {

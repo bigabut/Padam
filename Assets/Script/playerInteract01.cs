@@ -31,6 +31,7 @@ public class PlayerInteract: MonoBehaviour
 
 
     public Generator generatorTask;
+    public WireManager wireTask;
 
     [Header("Pengaturan")]
     public float interactDistance =  1;
@@ -73,7 +74,7 @@ public class PlayerInteract: MonoBehaviour
             if (interactAction.WasPressedThisFrame() && !taskFixCable)
             {
                 fixCable.SetActive(true);
-                mainGameUI.SetActive(false);
+               wireTask.timer = wireTask.timeLimit;
 
                 if (playerMovement != null) playerMovement.enabled = false;
             }
@@ -176,6 +177,8 @@ public class PlayerInteract: MonoBehaviour
             {
                 GeneratorUI.SetActive(true);
                 generatorTask.missionTimer = generatorTask.missionTime;
+                generatorTask.audioSource.Stop();
+                generatorTask.fillOil.Stop();
                
             }
         }
@@ -197,8 +200,7 @@ public class PlayerInteract: MonoBehaviour
     public void CloseFixCableUI()
     {
         fixCable.SetActive(false);
-        mainGameUI.SetActive(true);
-
+ 
         if (playerMovement != null) playerMovement.enabled = true;
 
         taskFixCable = true;

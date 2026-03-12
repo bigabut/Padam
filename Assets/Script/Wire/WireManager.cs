@@ -10,8 +10,8 @@ public class WireManager : MonoBehaviour, IPointerDownHandler {
     public PlayerInteract playerInteract;
 
     [Header("Wire Pairs")]
-    public CableLines[] wireLines;   // referensi ke 4 CableLine
-    public CableEnds[] wireEnds;     // referensi ke 8 CableEnd
+    public CableLines[] wireLines;   // isi sesuai jumlah kabel (misalnya 4)
+    public CableEnds[] wireEnds;     // isi sesuai jumlah port (misalnya 8)
 
     public int connectedPairs = 0;
     public int totalPairs = 4;
@@ -19,7 +19,7 @@ public class WireManager : MonoBehaviour, IPointerDownHandler {
 
     [Header("Timer")]
     public float timeLimit = 15f;
-    private float timer;
+    public float timer;
     private bool started = false;
     private bool openBox = false;
 
@@ -46,10 +46,18 @@ public class WireManager : MonoBehaviour, IPointerDownHandler {
                 UpdateTimerText();
             }
 
-            if (timer <= 0f) {
-                started = false;
+            if (timer <= 0f && !Done) {
                 Debug.Log("Waktu habis!");
-                if (timerText != null) timerText.text = "00:00";
+                connectedPairs = 0;
+
+                // Reset semua kabel dengan aman
+                foreach (var line in wireLines) {
+                    if (line != null) {
+                        line.ResetCable();
+
+                    }
+                }
+
                 playerInteract.CloseFixCableUILose();
             }
 
@@ -99,6 +107,5 @@ public class WireManager : MonoBehaviour, IPointerDownHandler {
             if (timerText != null) timerText.text = "Menang!";
             playerInteract.CloseFixCableUI();
         }
-      
     }
 }
