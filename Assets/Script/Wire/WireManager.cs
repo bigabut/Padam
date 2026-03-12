@@ -25,6 +25,7 @@ public class WireManager : MonoBehaviour, IPointerDownHandler {
     public AudioSource cableOnTargetSFX;
     [Header("UI")]
     public TMP_Text timerText;
+    public GameObject pintuFixKabel;
 
     void Start() {
         timer = timeLimit;
@@ -107,6 +108,7 @@ public class WireManager : MonoBehaviour, IPointerDownHandler {
             Done = true;
             if (timerText != null) timerText.text = "Menang!";
             playerInteract.CloseFixCableUI();
+            pintuFixKabel.SetActive(false);
         }
     }
 }

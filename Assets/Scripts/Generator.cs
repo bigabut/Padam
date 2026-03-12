@@ -27,6 +27,8 @@ public class Generator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public AudioSource audioSource;
     public AudioSource fillOil;
+    public GameObject pintuGenerator;
+    public GameObject pintuGenerator2;
 
     void Start()
     {
@@ -130,6 +132,8 @@ public class Generator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         Debug.Log("Generator fixed!");
         audioSource.Stop();
         fillOil.Stop();
+        pintuGenerator.SetActive(false);
+        pintuGenerator.SetActive(true);
         playerInteract.CloseGeneratorUI();
     }
 

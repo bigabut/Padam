@@ -13,6 +13,7 @@ public class PinGame : MonoBehaviour
     public float timeRemaining;   
     public AudioSource audioSFX;  
     public GameObject pinUI;
+    public GameObject pintuKeypad;
     public PlayerInteract playerInteract;
 
     
@@ -73,6 +74,7 @@ public class PinGame : MonoBehaviour
                     isCorrect = true;
                     isRunning = false; // stop timer
                     playerInteract.closePinUI();
+                    pintuKeypad.SetActive(false);
                 }
                 else
                 {
